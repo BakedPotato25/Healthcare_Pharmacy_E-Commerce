@@ -1,13 +1,121 @@
-import PlaceholderPage from "../../components/common/PlaceholderPage.jsx";
+import { ArrowRight, CreditCard, LockKeyhole, MapPin, ShieldCheck, Truck } from "lucide-react";
+import CustomerShell from "../../components/customer/CustomerShell.jsx";
+import { cartItems, formatCurrency } from "../../data/customerMockData.js";
 
 export default function CheckoutPage() {
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const shipping = 5;
+  const total = subtotal + shipping;
+
   return (
-    <PlaceholderPage
-      title="Checkout"
-      description="Placeholder for shipping details, order review, and simulated payment workflow."
-      role="Customer"
-      route="/customer/checkout"
-      nextReference="checkout_pharmacare"
-    />
+    <CustomerShell>
+      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full bg-pharmacare-primarySoft px-3 py-1 text-xs font-semibold text-pharmacare-primary">
+              <LockKeyhole size={14} />
+              Secure Checkout
+            </p>
+            <h1 className="mt-3 text-3xl font-semibold text-pharmacare-ink">Checkout</h1>
+          </div>
+          <div className="flex items-center gap-3 text-sm font-semibold text-pharmacare-muted">
+            <span className="text-pharmacare-primary">Shipping</span>
+            <span className="h-px w-10 bg-pharmacare-line" />
+            <span>Payment</span>
+            <span className="h-px w-10 bg-pharmacare-line" />
+            <span>Confirmation</span>
+          </div>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
+          <section className="rounded-xl border border-pharmacare-line bg-white p-6 shadow-soft">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-pharmacare-primarySoft text-pharmacare-primary">
+                <Truck size={20} />
+              </span>
+              <h2 className="text-xl font-semibold text-pharmacare-ink">Shipping Information</h2>
+            </div>
+            <form className="grid gap-5 md:grid-cols-2">
+              {[
+                ["First name", "Jane"],
+                ["Last name", "Customer"],
+                ["Street address", "123 Medical Way"],
+                ["City", "Seattle"],
+                ["State", "WA"],
+                ["ZIP code", "98101"],
+                ["Phone", "(555) 123-4567"],
+                ["Delivery note", "Leave at reception"],
+              ].map(([label, placeholder]) => (
+                <label key={label} className={label === "Street address" ? "md:col-span-2" : ""}>
+                  <span className="text-xs font-semibold uppercase tracking-wide text-pharmacare-muted">{label}</span>
+                  <input className="mt-2 h-11 w-full rounded-t-lg border-0 border-b-2 border-pharmacare-line bg-pharmacare-low px-4 outline-none focus:border-pharmacare-primary focus:bg-white focus:ring-0" placeholder={placeholder} type="text" />
+                </label>
+              ))}
+            </form>
+
+            <div className="mt-6 rounded-xl border border-pharmacare-line bg-pharmacare-primarySoft p-4">
+              <div className="flex gap-3">
+                <MapPin className="mt-0.5 shrink-0 text-pharmacare-primary" size={20} />
+                <p className="text-sm leading-6 text-pharmacare-muted">
+                  Shipping form is mock-only. The real checkout flow will later create order, payment, and shipment records through the API Gateway.
+                </p>
+              </div>
+            </div>
+
+            <button className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-pharmacare-primary px-5 text-sm font-semibold text-white shadow-soft hover:bg-pharmacare-primaryHover" type="button">
+              Continue to Payment
+              <ArrowRight size={17} />
+            </button>
+          </section>
+
+          <aside className="rounded-xl border border-pharmacare-line bg-white p-6 shadow-panel">
+            <h2 className="text-xl font-semibold text-pharmacare-ink">Order Summary</h2>
+            <div className="mt-5 space-y-4">
+              {cartItems.map((item) => (
+                <div key={item.id} className="flex gap-3">
+                  <div className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-xl ${item.accent}`}>
+                    <span className="text-sm font-semibold text-pharmacare-primary">{item.visual}</span>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-semibold text-pharmacare-ink">{item.name}</p>
+                    <p className="text-xs text-pharmacare-muted">Qty {item.quantity}</p>
+                  </div>
+                  <p className="text-sm font-semibold text-pharmacare-ink">{formatCurrency(item.price * item.quantity)}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 space-y-3 border-t border-pharmacare-line pt-4 text-sm text-pharmacare-muted">
+              <div className="flex justify-between">
+                <span>Subtotal</span>
+                <span>{formatCurrency(subtotal)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Shipping</span>
+                <span>{formatCurrency(shipping)}</span>
+              </div>
+              <div className="flex justify-between text-lg font-semibold text-pharmacare-ink">
+                <span>Total</span>
+                <span className="text-pharmacare-primary">{formatCurrency(total)}</span>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-xl bg-pharmacare-low p-4">
+              <div className="flex gap-3">
+                <CreditCard className="mt-0.5 shrink-0 text-pharmacare-primary" size={20} />
+                <div>
+                  <p className="font-semibold text-pharmacare-ink">Simulated payment</p>
+                  <p className="mt-1 text-sm leading-6 text-pharmacare-muted">No real payment provider is used in the MVP demo.</p>
+                </div>
+              </div>
+            </div>
+            <p className="mt-4 flex gap-2 text-xs leading-5 text-pharmacare-muted">
+              <ShieldCheck size={16} className="mt-0.5 shrink-0" />
+              Keep personal health information out of demo data.
+            </p>
+          </aside>
+        </div>
+      </main>
+    </CustomerShell>
   );
 }

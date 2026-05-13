@@ -1,9 +1,9 @@
 :root {
   color-scheme: light;
-  --pharmacare-bg: #f8fbfa;
-  --pharmacare-ink: #10231f;
-  --pharmacare-muted: #5e716c;
-  --pharmacare-line: #d8e5e1;
-  --pharmacare-primary: #1f8f72;
-  --pharmacare-soft: #e8f5f1;
+  --pharmacare-bg: #f8f9fb;
+  --pharmacare-ink: #191c1e;
+  --pharmacare-muted: #3e4943;
+  --pharmacare-line: #bdcac1;
+  --pharmacare-primary: #00694d;
+  --pharmacare-soft: #e8fff5;
 }
