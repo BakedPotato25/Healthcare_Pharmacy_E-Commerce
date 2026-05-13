@@ -4,9 +4,42 @@ Simulated payment lifecycle service for the academic checkout flow.
 
 ## Current Scope
 
-- Django REST Framework skeleton.
+- Django REST Framework payment context.
 - `/health/` endpoint.
-- No payment model or payment state transition logic yet.
+- Simulated payment creation, detail, confirmation, and cancellation.
+- No real payment provider integration.
+- No direct access to `order_service` data. Payments store external `order_id` and `user_id` values only.
+
+## Payment Lifecycle
+
+New payments always start as `pending`.
+
+Allowed statuses:
+
+- `pending`
+- `paid`
+- `failed`
+- `cancelled`
+
+Allowed MVP transitions:
+
+- `pending -> paid`
+- `pending -> cancelled`
+
+Rejected transitions:
+
+- `paid -> cancelled`
+- `cancelled -> paid`
+- Any non-pending payment confirmation or cancellation.
+
+## APIs
+
+When called through the API Gateway, use:
+
+- `POST /api/payments/`
+- `GET /api/payments/:id/`
+- `POST /api/payments/:id/confirm/`
+- `POST /api/payments/:id/cancel/`
 
 ## Local Setup
 
