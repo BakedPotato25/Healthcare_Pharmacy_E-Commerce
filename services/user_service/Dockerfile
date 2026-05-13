@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY manage.py .
 COPY user_service ./user_service
+COPY accounts ./accounts
 
 EXPOSE 8001
 
