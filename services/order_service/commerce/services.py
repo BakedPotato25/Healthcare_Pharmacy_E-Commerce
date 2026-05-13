@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
 
-from .external import fetch_product_snapshot
+from .external import cancel_payment, create_payment, create_shipment, fetch_product_snapshot
 from .models import CartItem, Order, OrderItem
 
 
@@ -23,7 +23,8 @@ def add_cart_item(user_id, product_id, quantity):
 
 
 @transaction.atomic
-def checkout_cart(user_id, shipping_address=""):
+def checkout_cart(user, shipping_address, recipient_name="", phone="", authorization=""):
+    user_id = user["id"]
     cart_items = list(CartItem.objects.filter(user_id=user_id).order_by("created_at"))
     if not cart_items:
         raise ValidationError({"cart": "Cart is empty."})
@@ -50,6 +51,31 @@ def checkout_cart(user_id, shipping_address=""):
         for item in cart_items
     ]
     OrderItem.objects.bulk_create(order_items)
+
+    payment = create_payment(order)
+    try:
+        shipment = create_shipment(
+            order=order,
+            recipient_name=recipient_name or user.get("username") or user.get("email") or "Customer",
+            phone=phone or "Not provided",
+            address=shipping_address,
+            authorization=authorization,
+        )
+    except ValidationError as exc:
+        payment_cancelled = cancel_payment(payment["id"])
+        detail = dict(exc.detail) if isinstance(exc.detail, dict) else {"shipping": exc.detail}
+        detail["payment_cancellation"] = (
+            "Payment was cancelled after shipment creation failed."
+            if payment_cancelled
+            else "Payment cancellation was attempted but did not complete."
+        )
+        raise ValidationError(detail) from exc
+
+    order.payment_id = payment["id"]
+    order.payment_status = payment["status"]
+    order.shipment_id = shipment["id"]
+    order.shipping_status = shipment["status"]
+    order.save(update_fields=["payment_id", "payment_status", "shipment_id", "shipping_status", "updated_at"])
+
     CartItem.objects.filter(user_id=user_id).delete()
     return Order.objects.prefetch_related("items").get(id=order.id)
-

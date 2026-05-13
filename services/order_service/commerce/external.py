@@ -64,3 +64,78 @@ def fetch_product_snapshot(product_id):
         "unit_price": Decimal(str(product["price"])),
     }
 
+
+def create_payment(order):
+    payload = {
+        "order_id": order.id,
+        "user_id": order.user_id,
+        "amount": str(order.total_amount),
+    }
+    try:
+        response = requests.post(
+            f"{settings.PAYMENT_SERVICE_URL.rstrip('/')}/api/payments/",
+            json=payload,
+            timeout=settings.PAYMENT_SERVICE_TIMEOUT_SECONDS,
+        )
+    except requests.RequestException as exc:
+        raise ValidationError({"payment": "Unable to create payment. Payment service is unavailable."}) from exc
+
+    if response.status_code != 201:
+        raise ValidationError(
+            {
+                "payment": "Unable to create payment. Payment service rejected the request.",
+                "payment_service_response": _safe_response_body(response),
+            }
+        )
+
+    return response.json()
+
+
+def cancel_payment(payment_id):
+    try:
+        response = requests.post(
+            f"{settings.PAYMENT_SERVICE_URL.rstrip('/')}/api/payments/{payment_id}/cancel/",
+            timeout=settings.PAYMENT_SERVICE_TIMEOUT_SECONDS,
+        )
+    except requests.RequestException:
+        return False
+
+    return response.status_code in {200, 204}
+
+
+def create_shipment(order, recipient_name, phone, address, authorization):
+    payload = {
+        "order_id": order.id,
+        "user_id": order.user_id,
+        "recipient_name": recipient_name,
+        "phone": phone,
+        "address": address,
+    }
+    headers = {"Authorization": authorization} if authorization else {}
+
+    try:
+        response = requests.post(
+            f"{settings.SHIPPING_SERVICE_URL.rstrip('/')}/api/shipments/",
+            json=payload,
+            headers=headers,
+            timeout=settings.SHIPPING_SERVICE_TIMEOUT_SECONDS,
+        )
+    except requests.RequestException as exc:
+        raise ValidationError({"shipping": "Unable to create shipment. Shipping service is unavailable."}) from exc
+
+    if response.status_code != 201:
+        raise ValidationError(
+            {
+                "shipping": "Unable to create shipment. Shipping service rejected the request.",
+                "shipping_service_response": _safe_response_body(response),
+            }
+        )
+
+    return response.json()
+
+
+def _safe_response_body(response):
+    try:
+        return response.json()
+    except ValueError:
+        return response.text[:500]

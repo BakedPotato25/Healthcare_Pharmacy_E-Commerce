@@ -94,7 +94,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class CheckoutSerializer(serializers.Serializer):
-    shipping_address = serializers.CharField(required=False, allow_blank=True)
+    shipping_address = serializers.CharField()
+    recipient_name = serializers.CharField(required=False, allow_blank=True)
+    phone = serializers.CharField(required=False, allow_blank=True)
 
 
 def serialize_cart(items):
@@ -105,4 +107,3 @@ def serialize_cart(items):
         "total_amount": total,
         "item_count": item_count,
     }
-

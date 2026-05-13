@@ -74,15 +74,19 @@ with `line_total`. No cross-service database foreign keys are created.
 
 ## Checkout Behavior
 
-Checkout currently:
+Checkout:
 
 1. Validates that the customer cart is not empty.
 2. Creates an `Order`.
 3. Creates `OrderItem` rows from cart snapshots.
 4. Stores the order total.
-5. Clears the cart after successful order creation.
+5. Calls `payment_service` over HTTP to create a pending payment.
+6. Calls `shipping_service` over HTTP to create a pending shipment.
+7. Stores `payment_id`, `payment_status`, `shipment_id`, and `shipping_status` snapshots on the order.
+8. Clears the cart only after payment and shipment creation succeed.
 
-Payment and shipping integration are intentionally left for later phases.
+If payment creation fails, checkout returns a validation error and the cart is not cleared.
+If shipment creation fails after payment creation, checkout attempts to cancel the created payment before returning a validation error. The service does not directly access payment or shipping databases.
 
 ## Curl Checks Through API Gateway
 
@@ -95,7 +99,7 @@ curl.exe -X PATCH http://localhost:8000/api/cart/items/1/ -H "Authorization: Bea
 
 curl.exe -X DELETE http://localhost:8000/api/cart/items/1/ -H "Authorization: Bearer <customer_access_token>"
 
-curl.exe -X POST http://localhost:8000/api/orders/checkout/ -H "Authorization: Bearer <customer_access_token>" -H "Content-Type: application/json" -d "{\"shipping_address\":\"123 Demo Street\"}"
+curl.exe -X POST http://localhost:8000/api/orders/checkout/ -H "Authorization: Bearer <customer_access_token>" -H "Content-Type: application/json" -d "{\"shipping_address\":\"123 Demo Street\",\"recipient_name\":\"Demo Customer\",\"phone\":\"555-0101\"}"
 
 curl.exe http://localhost:8000/api/orders/ -H "Authorization: Bearer <customer_access_token>"
 

@@ -90,7 +90,10 @@ class CheckoutView(APIView):
         serializer = CheckoutSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         order = checkout_cart(
-            user_id=user["id"],
-            shipping_address=serializer.validated_data.get("shipping_address", ""),
+            user=user,
+            shipping_address=serializer.validated_data["shipping_address"],
+            recipient_name=serializer.validated_data.get("recipient_name", ""),
+            phone=serializer.validated_data.get("phone", ""),
+            authorization=request.headers.get("Authorization", ""),
         )
         return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
