@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY manage.py .
 COPY product_service ./product_service
+COPY catalog ./catalog
 
 EXPOSE 8002
 
