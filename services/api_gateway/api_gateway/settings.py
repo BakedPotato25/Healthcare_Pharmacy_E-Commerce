@@ -19,6 +19,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "api_gateway.cors.SimpleCorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -66,4 +67,42 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
     ]
+}
+
+SERVICE_URLS = {
+    "user_service": os.environ.get("USER_SERVICE_URL", "http://localhost:8001"),
+    "product_service": os.environ.get("PRODUCT_SERVICE_URL", "http://localhost:8002"),
+    "order_service": os.environ.get("ORDER_SERVICE_URL", "http://localhost:8003"),
+    "payment_service": os.environ.get("PAYMENT_SERVICE_URL", "http://localhost:8004"),
+    "shipping_service": os.environ.get("SHIPPING_SERVICE_URL", "http://localhost:8005"),
+    "chatbot_service": os.environ.get("CHATBOT_SERVICE_URL", "http://localhost:8006"),
+}
+
+GATEWAY_REQUEST_TIMEOUT_SECONDS = float(os.environ.get("GATEWAY_REQUEST_TIMEOUT_SECONDS", "10"))
+
+CORS_ALLOWED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get(
+        "CORS_ALLOWED_ORIGINS",
+        "http://localhost:5173,http://127.0.0.1:5173",
+    ).split(",")
+    if origin.strip()
+]
+CORS_ALLOW_ALL_ORIGINS = os.environ.get("CORS_ALLOW_ALL_ORIGINS", "False").lower() == "true"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "api_gateway": {
+            "handlers": ["console"],
+            "level": os.environ.get("GATEWAY_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+    },
 }
