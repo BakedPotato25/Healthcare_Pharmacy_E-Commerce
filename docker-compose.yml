@@ -1,0 +1,153 @@
+services:
+  api_gateway:
+    build:
+      context: ./services/api_gateway
+    container_name: pharmacare-api-gateway
+    environment:
+      DJANGO_SECRET_KEY: api_gateway-dev-secret-key
+      DJANGO_DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-api-gateway
+      PORT: "8000"
+      USER_SERVICE_URL: http://pharmacare-user-service:8001
+      PRODUCT_SERVICE_URL: http://pharmacare-product-service:8002
+      ORDER_SERVICE_URL: http://pharmacare-order-service:8003
+      PAYMENT_SERVICE_URL: http://pharmacare-payment-service:8004
+      SHIPPING_SERVICE_URL: http://pharmacare-shipping-service:8005
+      CHATBOT_SERVICE_URL: http://pharmacare-chatbot-service:8006
+    ports:
+      - "8000:8000"
+    command: python manage.py runserver 0.0.0.0:8000
+    networks:
+      - pharmacare_backend
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/').read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  user_service:
+    build:
+      context: ./services/user_service
+    container_name: pharmacare-user-service
+    environment:
+      DJANGO_SECRET_KEY: user_service-dev-secret-key
+      DJANGO_DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-user-service
+      PORT: "8001"
+    ports:
+      - "8001:8001"
+    command: python manage.py runserver 0.0.0.0:8001
+    networks:
+      - pharmacare_backend
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health/').read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  product_service:
+    build:
+      context: ./services/product_service
+    container_name: pharmacare-product-service
+    environment:
+      DJANGO_SECRET_KEY: product_service-dev-secret-key
+      DJANGO_DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-product-service
+      PORT: "8002"
+    ports:
+      - "8002:8002"
+    command: python manage.py runserver 0.0.0.0:8002
+    networks:
+      - pharmacare_backend
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/health/').read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  order_service:
+    build:
+      context: ./services/order_service
+    container_name: pharmacare-order-service
+    environment:
+      DJANGO_SECRET_KEY: order_service-dev-secret-key
+      DJANGO_DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-order-service
+      PORT: "8003"
+      PAYMENT_SERVICE_URL: http://pharmacare-payment-service:8004
+      SHIPPING_SERVICE_URL: http://pharmacare-shipping-service:8005
+    ports:
+      - "8003:8003"
+    command: python manage.py runserver 0.0.0.0:8003
+    networks:
+      - pharmacare_backend
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8003/health/').read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  payment_service:
+    build:
+      context: ./services/payment_service
+    container_name: pharmacare-payment-service
+    environment:
+      DJANGO_SECRET_KEY: payment_service-dev-secret-key
+      DJANGO_DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-payment-service
+      PORT: "8004"
+    ports:
+      - "8004:8004"
+    command: python manage.py runserver 0.0.0.0:8004
+    networks:
+      - pharmacare_backend
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8004/health/').read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  shipping_service:
+    build:
+      context: ./services/shipping_service
+    container_name: pharmacare-shipping-service
+    environment:
+      DJANGO_SECRET_KEY: shipping_service-dev-secret-key
+      DJANGO_DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-shipping-service
+      PORT: "8005"
+    ports:
+      - "8005:8005"
+    command: python manage.py runserver 0.0.0.0:8005
+    networks:
+      - pharmacare_backend
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8005/health/').read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  chatbot_service:
+    build:
+      context: ./services/chatbot_service
+    container_name: pharmacare-chatbot-service
+    environment:
+      DJANGO_SECRET_KEY: chatbot_service-dev-secret-key
+      DJANGO_DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-chatbot-service
+      PORT: "8006"
+      CHATBOT_ARTIFACT_DIR: artifacts
+    ports:
+      - "8006:8006"
+    command: python manage.py runserver 0.0.0.0:8006
+    networks:
+      - pharmacare_backend
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8006/health/').read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  pharmacare_backend:
+    driver: bridge
