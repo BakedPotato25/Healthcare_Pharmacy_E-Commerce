@@ -1,0 +1,177 @@
+import { AlertTriangle, Boxes, DollarSign, PackageCheck, ShoppingCart, Truck, UsersRound } from "lucide-react";
+
+export const staffMetrics = [
+  { label: "Total Orders", value: "128", helper: "+12 today", icon: ShoppingCart, tone: "primary" },
+  { label: "Pending Fulfillment", value: "24", helper: "8 need review", icon: PackageCheck, tone: "warning" },
+  { label: "Low Stock Items", value: "11", helper: "3 critical", icon: AlertTriangle, tone: "danger" },
+  { label: "Active Customers", value: "842", helper: "+18 this week", icon: UsersRound, tone: "blue" },
+  { label: "Revenue Today", value: "$4,820", helper: "Mock total", icon: DollarSign, tone: "secondary" },
+];
+
+export const inventoryRows = [
+  {
+    id: "PRD-1001",
+    name: "Daily Vitamin C Complex",
+    category: "Vitamins & Minerals",
+    sku: "VIT-C-1000-60",
+    price: "$18.99",
+    stock: 42,
+    status: "in_stock",
+    updated: "May 13, 2026",
+  },
+  {
+    id: "PRD-1002",
+    name: "Digital Flex Thermometer",
+    category: "Medical Devices",
+    sku: "MED-TEMP-FLX",
+    price: "$12.99",
+    stock: 8,
+    status: "low_stock",
+    updated: "May 13, 2026",
+  },
+  {
+    id: "PRD-1003",
+    name: "Hydrating Ceramide Cream",
+    category: "Skincare",
+    sku: "SKN-CER-200",
+    price: "$16.75",
+    stock: 35,
+    status: "in_stock",
+    updated: "May 12, 2026",
+  },
+  {
+    id: "PRD-1004",
+    name: "First Aid Bandage Kit",
+    category: "First Aid",
+    sku: "FA-BAND-72",
+    price: "$14.25",
+    stock: 0,
+    status: "out_of_stock",
+    updated: "May 11, 2026",
+  },
+];
+
+export const staffOrders = [
+  {
+    id: "ORD-9482",
+    customer: "Emily Hayes",
+    email: "e.hayes@example.com",
+    status: "processing",
+    payment: "paid",
+    total: "$61.73",
+    items: 2,
+    created: "May 13, 2026 10:42",
+    address: "123 Medical Way, Seattle, WA",
+  },
+  {
+    id: "ORD-9471",
+    customer: "Marco Rivas",
+    email: "m.rivas.88@mail.com",
+    status: "pending",
+    payment: "pending",
+    total: "$38.75",
+    items: 3,
+    created: "May 13, 2026 09:18",
+    address: "48 Lakeview Road, Austin, TX",
+  },
+  {
+    id: "ORD-9458",
+    customer: "Sophia Chen",
+    email: "schen.tech@domain.net",
+    status: "ready_to_ship",
+    payment: "paid",
+    total: "$27.24",
+    items: 2,
+    created: "May 12, 2026 16:34",
+    address: "88 Pine Street, Portland, OR",
+  },
+];
+
+export const shipmentRows = [
+  {
+    id: "SHP-3102",
+    orderId: "ORD-9482",
+    recipient: "Emily Hayes",
+    carrier: "PharmaCare Local",
+    tracking: "PCL-849201",
+    status: "preparing",
+    eta: "May 15, 2026",
+  },
+  {
+    id: "SHP-3098",
+    orderId: "ORD-9458",
+    recipient: "Sophia Chen",
+    carrier: "MediShip",
+    tracking: "MS-551932",
+    status: "shipped",
+    eta: "May 14, 2026",
+  },
+  {
+    id: "SHP-3082",
+    orderId: "ORD-9391",
+    recipient: "Daniel Kim",
+    carrier: "CareCourier",
+    tracking: "CC-103892",
+    status: "delivered",
+    eta: "Delivered",
+  },
+  {
+    id: "SHP-3077",
+    orderId: "ORD-9375",
+    recipient: "Priya Patel",
+    carrier: "MediShip",
+    tracking: "MS-551123",
+    status: "pending",
+    eta: "Awaiting handoff",
+  },
+];
+
+export const customerRows = [
+  {
+    id: "CUS-2041",
+    name: "Emily Hayes",
+    email: "e.hayes@example.com",
+    orders: 24,
+    lastActive: "May 13, 2026",
+    status: "active",
+    segment: "Frequent shopper",
+    notes: "Asked support for tracking number. Email follow-up completed.",
+  },
+  {
+    id: "CUS-1988",
+    name: "Marco Rivas",
+    email: "m.rivas.88@mail.com",
+    orders: 8,
+    lastActive: "May 12, 2026",
+    status: "active",
+    segment: "Wellness",
+    notes: "Prefers digestive health and vitamin products.",
+  },
+  {
+    id: "CUS-1833",
+    name: "Sophia Chen",
+    email: "schen.tech@domain.net",
+    orders: 41,
+    lastActive: "May 8, 2026",
+    status: "active",
+    segment: "Family care",
+    notes: "Uses family care categories and oral care products.",
+  },
+  {
+    id: "CUS-1712",
+    name: "James Wright",
+    email: "jwright_home@isp.com",
+    orders: 2,
+    lastActive: "April 28, 2026",
+    status: "inactive",
+    segment: "New customer",
+    notes: "No recent activity.",
+  },
+];
+
+export const shippingMetrics = [
+  { label: "Pending Orders", value: "18", helper: "Needs packing", icon: Boxes, tone: "warning" },
+  { label: "Shipped Today", value: "36", helper: "Across 3 carriers", icon: Truck, tone: "primary" },
+  { label: "Exception Rate", value: "1.8%", helper: "Mock logistics", icon: AlertTriangle, tone: "danger" },
+  { label: "Carrier Perf", value: "96%", helper: "On-time delivery", icon: PackageCheck, tone: "blue" },
+];
