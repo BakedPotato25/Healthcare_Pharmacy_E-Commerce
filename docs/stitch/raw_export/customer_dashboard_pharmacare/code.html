@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer Dashboard - PharmaCare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e1e2e4",
+                        "outline": "#6e7a73",
+                        "primary-fixed-dim": "#71dab1",
+                        "on-primary-fixed-variant": "#00513b",
+                        "secondary-container": "#baece9",
+                        "primary": "#00694d",
+                        "on-secondary-fixed-variant": "#1c4e4c",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#002116",
+                        "background": "#f8f9fb",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#8df7cc",
+                        "on-surface": "#191c1e",
+                        "secondary": "#366664",
+                        "outline-variant": "#bdcac1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#006c4f",
+                        "surface-variant": "#e1e2e4",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "surface-container": "#edeef0",
+                        "surface-bright": "#f8f9fb",
+                        "primary-container": "#008562",
+                        "surface-dim": "#d9dadc",
+                        "tertiary-fixed": "#d8e2ff",
+                        "inverse-primary": "#71dab1",
+                        "surface-container-high": "#e7e8ea",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1e",
+                        "surface": "#f8f9fb",
+                        "tertiary": "#0058be",
+                        "tertiary-container": "#2170e4",
+                        "on-secondary-fixed": "#00201f",
+                        "secondary-fixed-dim": "#9ed0cd",
+                        "secondary-fixed": "#baece9",
+                        "on-tertiary-fixed": "#001a42",
+                        "surface-container-low": "#f3f4f6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#3e4943",
+                        "inverse-on-surface": "#f0f1f3",
+                        "on-tertiary-container": "#fefcff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#3d6c6a",
+                        "inverse-surface": "#2e3132",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "on-primary-container": "#f5fff8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "lg": "24px",
+                        "unit": "4px",
+                        "xl": "48px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Mobile Top Navigation Bar -->
+<header class="md:hidden flex justify-between items-center w-full px-lg h-16 max-w-container-max mx-auto bg-surface-container-lowest text-primary border-b border-outline-variant shadow-sm docked full-width top-0 z-50">
+<div class="font-headline-lg text-title-md text-primary">PharmaCare</div>
+<div class="flex gap-sm items-center">
+<button aria-label="shopping_cart" class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+</button>
+<button aria-label="account_circle" class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+<button aria-label="swap_horiz" class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">swap_horiz</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-screen fixed left-0 top-0 w-64 z-40 bg-surface-container-low shadow-md p-md gap-sm">
+<div class="mb-lg">
+<div class="font-headline-lg text-title-md text-primary mb-sm">PharmaCare</div>
+<div class="flex items-center gap-sm mt-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a professional woman with a calm, reassuring expression, lit by soft, natural, diffused studio lighting. The background is a clean, neutral white, typical of a modern clinical aesthetic. She is wearing simple, elegant clothing. The overall mood is trustworthy and approachable, fitting for a healthcare platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsmbq7Y1neNMLsMz2H6_3Pz3WInDRXWqJG3vOidefLCvZLsbIDKdRldpTGxIlMZxtv320knfRe1jwrOXu8rVYtzulSlJRO49TYmGLlSw9ySgV5MnhkBxl9r-94GATl8PF8Q2R-qVzpDmQT0Ecpps7q_MdhOoJdpSZnjj9mveQabzGXHUmMlhW0_D3DAg94ohs73oPXoVBzFodjx4kOWpuF3fcqW_rcfl3Bx9lEV5zMsMRuN3yCNoqdR-VjPbljhr8tCEMIpOzt56Zg"/>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Customer Portal</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Manage prescriptions</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-unit flex-grow">
+<!-- Active Tab -->
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg font-bold Active: scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">medication</span>
+<span class="font-body-md text-body-md">Products</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">package_2</span>
+<span class="font-body-md text-body-md">Orders</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">smart_toy</span>
+<span class="font-body-md text-body-md">AI Assistant</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-unit pt-md border-t border-outline-variant">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help</span>
+<span class="font-body-md text-body-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 w-full max-w-container-max mx-auto pb-xl">
+<!-- Desktop Header Area (Search) -->
+<div class="hidden md:flex justify-between items-center px-lg py-md bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-30 shadow-sm">
+<div class="flex-1 max-w-xl relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant bg-surface-container-low focus:border-primary focus:ring-1 focus:ring-primary text-on-surface font-body-md outline-none transition-all" placeholder="Search medications, products, or categories..." type="text"/>
+</div>
+<div class="flex gap-md items-center ml-lg">
+<button aria-label="shopping_cart" class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-primary relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</div>
+<div class="px-margin-mobile md:px-lg py-lg space-y-xl">
+<!-- Hero Section -->
+<section class="relative rounded-xl overflow-hidden bg-primary-container text-on-primary-container p-xl flex flex-col md:flex-row items-center justify-between gap-lg shadow-md">
+<div class="z-10 max-w-lg">
+<h1 class="font-display-lg text-display-lg mb-sm">Your trusted healthcare shopping assistant</h1>
+<p class="font-body-lg text-body-lg opacity-90 mb-lg">Manage prescriptions, track orders, and consult our AI for personalized care recommendations.</p>
+<button class="bg-on-primary-container text-primary-container px-lg py-sm rounded-lg font-title-md text-title-md hover:bg-surface transition-colors shadow-sm inline-flex items-center gap-sm">
+<span>Refill Prescriptions</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+</div>
+<div class="absolute right-0 top-0 w-1/2 h-full opacity-20 pointer-events-none md:block hidden">
+<!-- Abstract clinical pattern -->
+<svg class="w-full h-full" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<path d="M45.7,-76.3C58.9,-69.5,69.2,-55.4,76.5,-40.4C83.7,-25.4,87.9,-9.5,86.2,5.8C84.4,21.1,76.8,35.8,66.6,48.1C56.3,60.4,43.5,70.2,28.8,75.9C14.1,81.6,-2.5,83.1,-18.2,79.5C-33.8,75.8,-48.5,66.9,-60.1,54.8C-71.6,42.8,-80,27.5,-83.4,11.3C-86.8,-4.9,-85.2,-22.1,-77.3,-36.5C-69.4,-50.8,-55.1,-62.3,-40.3,-68.5C-25.5,-74.7,-10.1,-75.6,4.1,-82.5C18.3,-89.4,32.5,-83.1,45.7,-76.3Z" fill="currentColor" transform="translate(100 100)"></path>
+</svg>
+</div>
+</section>
+<!-- Categories Grid -->
+<section>
+<div class="flex justify-between items-end mb-md">
+<h2 class="font-headline-lg text-title-md text-on-surface">Shop by Category</h2>
+<a class="font-body-sm text-body-sm text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-md">
+<!-- Category Card 1 -->
+<a class="group bg-surface-container-lowest rounded-xl p-md border border-outline-variant hover:border-primary hover:shadow-md transition-all flex flex-col items-center text-center gap-sm" href="#">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">medication_liquid</span>
+</div>
+<span class="font-title-md text-body-md text-on-surface">OTC Meds</span>
+</a>
+<!-- Category Card 2 -->
+<a class="group bg-surface-container-lowest rounded-xl p-md border border-outline-variant hover:border-primary hover:shadow-md transition-all flex flex-col items-center text-center gap-sm" href="#">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">vaccines</span>
+</div>
+<span class="font-title-md text-body-md text-on-surface">Vitamins</span>
+</a>
+<!-- Category Card 3 -->
+<a class="group bg-surface-container-lowest rounded-xl p-md border border-outline-variant hover:border-primary hover:shadow-md transition-all flex flex-col items-center text-center gap-sm" href="#">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">child_care</span>
+</div>
+<span class="font-title-md text-body-md text-on-surface">Baby Care</span>
+</a>
+<!-- Category Card 4 -->
+<a class="group bg-surface-container-lowest rounded-xl p-md border border-outline-variant hover:border-primary hover:shadow-md transition-all flex flex-col items-center text-center gap-sm" href="#">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<span class="font-title-md text-body-md text-on-surface">Heart Health</span>
+</a>
+<!-- Category Card 5 -->
+<a class="group bg-surface-container-lowest rounded-xl p-md border border-outline-variant hover:border-primary hover:shadow-md transition-all flex flex-col items-center text-center gap-sm" href="#">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">masks</span>
+</div>
+<span class="font-title-md text-body-md text-on-surface">First Aid</span>
+</a>
+</div>
+</section>
+<!-- Recommended Products Carousel (Static Representation) -->
+<section>
+<div class="flex justify-between items-end mb-md">
+<h2 class="font-headline-lg text-title-md text-on-surface">Recommended For You</h2>
+<div class="flex gap-sm">
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-md overflow-x-auto pb-sm snap-x">
+<!-- Product 1 -->
+<div class="min-w-[240px] bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-sm shadow-sm hover:shadow-md transition-shadow snap-start">
+<div class="w-full h-32 bg-surface-container-low rounded-lg mb-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings: 'FILL' 0;">pill</span>
+</div>
+<div class="font-title-md text-body-md text-on-surface line-clamp-1">Omega-3 Fish Oil</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">1000mg, 120 Softgels</div>
+<div class="font-title-md text-title-md text-primary mt-auto pt-sm">$24.99</div>
+<button class="w-full mt-sm py-sm bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors">Add to Cart</button>
+</div>
+<!-- Product 2 -->
+<div class="min-w-[240px] bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-sm shadow-sm hover:shadow-md transition-shadow snap-start">
+<div class="w-full h-32 bg-surface-container-low rounded-lg mb-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings: 'FILL' 0;">medication</span>
+</div>
+<div class="font-title-md text-body-md text-on-surface line-clamp-1">Daily Multivitamin</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Men's 50+, 90 Tablets</div>
+<div class="font-title-md text-title-md text-primary mt-auto pt-sm">$18.50</div>
+<button class="w-full mt-sm py-sm border border-primary text-primary rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">Add to Cart</button>
+</div>
+<!-- Product 3 -->
+<div class="min-w-[240px] bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-sm shadow-sm hover:shadow-md transition-shadow snap-start">
+<div class="w-full h-32 bg-surface-container-low rounded-lg mb-sm flex items-center justify-center relative">
+<span class="absolute top-2 left-2 bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full font-label-md text-[10px]">Prescription</span>
+<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings: 'FILL' 0;">prescriptions</span>
+</div>
+<div class="font-title-md text-body-md text-on-surface line-clamp-1">Lisinopril</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">10mg, 30 Tablets</div>
+<div class="font-title-md text-title-md text-primary mt-auto pt-sm">Requires Rx</div>
+<button class="w-full mt-sm py-sm border border-secondary text-secondary rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">Request Refill</button>
+</div>
+</div>
+</section>
+<!-- Bottom Row: Recent Orders & AI Promo -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Recent Orders Summary -->
+<section class="lg:col-span-2 bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-sm">
+<div class="flex justify-between items-center mb-md border-b border-outline-variant pb-sm">
+<h2 class="font-headline-lg text-title-md text-on-surface">Recent Orders</h2>
+<a class="font-body-sm text-body-sm text-primary hover:underline" href="#">View History</a>
+</div>
+<div class="space-y-md">
+<!-- Order Item 1 -->
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">local_shipping</span>
+</div>
+<div>
+<div class="font-title-md text-body-md text-on-surface">Order #ORD-8924</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Shipped • Expected Oct 24</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-title-md text-body-md text-on-surface">$45.98</div>
+<div class="font-body-sm text-body-sm text-primary">Track Order</div>
+</div>
+</div>
+<!-- Order Item 2 -->
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">check_circle</span>
+</div>
+<div>
+<div class="font-title-md text-body-md text-on-surface">Order #ORD-7102</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Delivered • Oct 12</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-title-md text-body-md text-on-surface">$112.50</div>
+<button class="font-body-sm text-body-sm text-secondary hover:underline">Reorder</button>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Assistant Promo -->
+<section class="bg-gradient-to-br from-tertiary-container to-tertiary text-on-tertiary-container rounded-xl p-lg shadow-md flex flex-col justify-between relative overflow-hidden min-h-[300px]">
+<div class="z-10">
+<div class="flex items-center gap-sm mb-sm text-on-tertiary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span class="font-label-md text-label-md uppercase tracking-wider">PharmaCare AI</span>
+</div>
+<h2 class="font-headline-lg text-title-md mb-sm text-white">Need help finding the right product?</h2>
+<p class="font-body-sm text-body-sm mb-lg opacity-90 text-white">Our clinical AI assistant can help analyze your symptoms and suggest appropriate over-the-counter options.</p>
+</div>
+<button class="z-10 bg-white text-tertiary px-md py-sm rounded-lg font-title-md text-body-md w-full hover:bg-surface-container-lowest transition-colors shadow-sm flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">chat</span>
+                        Start Consultation
+                    </button>
+<!-- Decorative circles -->
+<div class="absolute -bottom-12 -right-12 w-48 h-48 bg-white opacity-10 rounded-full blur-2xl"></div>
+<div class="absolute top-12 -left-12 w-32 h-32 bg-white opacity-10 rounded-full blur-xl"></div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

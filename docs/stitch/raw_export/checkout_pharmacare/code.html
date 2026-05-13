@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PharmaCare - Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e1e2e4",
+                        "outline": "#6e7a73",
+                        "primary-fixed-dim": "#71dab1",
+                        "on-primary-fixed-variant": "#00513b",
+                        "secondary-container": "#baece9",
+                        "primary": "#00694d",
+                        "on-secondary-fixed-variant": "#1c4e4c",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#002116",
+                        "background": "#f8f9fb",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#8df7cc",
+                        "on-surface": "#191c1e",
+                        "secondary": "#366664",
+                        "outline-variant": "#bdcac1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#006c4f",
+                        "surface-variant": "#e1e2e4",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "surface-container": "#edeef0",
+                        "surface-bright": "#f8f9fb",
+                        "primary-container": "#008562",
+                        "surface-dim": "#d9dadc",
+                        "tertiary-fixed": "#d8e2ff",
+                        "inverse-primary": "#71dab1",
+                        "surface-container-high": "#e7e8ea",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1e",
+                        "surface": "#f8f9fb",
+                        "tertiary": "#0058be",
+                        "tertiary-container": "#2170e4",
+                        "on-secondary-fixed": "#00201f",
+                        "secondary-fixed-dim": "#9ed0cd",
+                        "secondary-fixed": "#baece9",
+                        "on-tertiary-fixed": "#001a42",
+                        "surface-container-low": "#f3f4f6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#3e4943",
+                        "inverse-on-surface": "#f0f1f3",
+                        "on-tertiary-container": "#fefcff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#3d6c6a",
+                        "inverse-surface": "#2e3132",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "on-primary-container": "#f5fff8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "lg": "24px",
+                        "unit": "4px",
+                        "xl": "48px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f8f9fb; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopAppBar (Nav Suppressed for Checkout - Linear Flow, but keeping Brand anchor) -->
+<header class="bg-surface-container-lowest border-b border-outline-variant shadow-sm w-full top-0 z-50">
+<div class="flex justify-between items-center w-full px-lg h-16 max-w-container-max mx-auto">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<span class="font-headline-lg text-title-md text-primary">PharmaCare</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant font-body-sm">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+<span>Secure Checkout</span>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-lg py-xl">
+<div class="mb-lg">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-sm">Checkout</h1>
+<!-- Progress Stepper -->
+<div class="flex items-center mt-md max-w-2xl">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md">1</div>
+<span class="font-label-md text-primary mt-xs">Shipping</span>
+</div>
+<div class="flex-grow h-[2px] bg-outline-variant mx-sm mt-[-20px]"></div>
+<div class="flex flex-col items-center opacity-50">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-md">2</div>
+<span class="font-label-md text-on-surface-variant mt-xs">Payment</span>
+</div>
+<div class="flex-grow h-[2px] bg-outline-variant mx-sm mt-[-20px] opacity-50"></div>
+<div class="flex flex-col items-center opacity-50">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-md">3</div>
+<span class="font-label-md text-on-surface-variant mt-xs">Review</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Main Form Area -->
+<div class="lg:col-span-8 space-y-lg">
+<!-- Shipping Details Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-lg">
+<div class="flex items-center gap-sm mb-md border-b border-surface-variant pb-sm">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<h2 class="font-title-md text-title-md text-on-surface">Shipping Information</h2>
+</div>
+<form class="space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div>
+<label class="block font-label-md text-on-surface-variant mb-xs" for="firstName">First Name</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-md py-sm font-body-md text-on-surface transition-colors" id="firstName" placeholder="Jane" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-on-surface-variant mb-xs" for="lastName">Last Name</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-md py-sm font-body-md text-on-surface transition-colors" id="lastName" placeholder="Doe" type="text"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-on-surface-variant mb-xs" for="address">Street Address</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-md py-sm font-body-md text-on-surface transition-colors" id="address" placeholder="123 Medical Way, Apt 4B" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="md:col-span-1">
+<label class="block font-label-md text-on-surface-variant mb-xs" for="city">City</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-md py-sm font-body-md text-on-surface transition-colors" id="city" placeholder="Seattle" type="text"/>
+</div>
+<div class="md:col-span-1">
+<label class="block font-label-md text-on-surface-variant mb-xs" for="state">State</label>
+<select class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-md py-sm font-body-md text-on-surface transition-colors appearance-none" id="state">
+<option>Washington</option>
+<option>Oregon</option>
+<option>California</option>
+</select>
+</div>
+<div class="md:col-span-1">
+<label class="block font-label-md text-on-surface-variant mb-xs" for="zip">ZIP Code</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-md py-sm font-body-md text-on-surface transition-colors" id="zip" placeholder="98101" type="text"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-on-surface-variant mb-xs" for="phone">Phone Number (For Delivery Updates)</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary focus:ring-0 px-md py-sm font-body-md text-on-surface transition-colors" id="phone" placeholder="(555) 123-4567" type="tel"/>
+</div>
+</form>
+</div>
+<!-- Navigation Buttons -->
+<div class="flex justify-between items-center mt-lg">
+<button class="font-label-md text-primary flex items-center gap-xs hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                        Return to Cart
+                    </button>
+<button class="bg-primary text-on-primary font-title-md text-body-md px-lg py-sm rounded-lg hover:bg-primary-container transition-colors flex items-center gap-sm shadow-sm h-[44px]">
+                        Continue to Payment
+                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Order Summary Sidebar -->
+<div class="lg:col-span-4">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-lg sticky top-lg">
+<h2 class="font-title-md text-title-md text-on-surface mb-md">Order Summary</h2>
+<div class="space-y-md mb-lg">
+<!-- Item 1 -->
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-body-md text-on-surface font-semibold">Lisinopril 10mg</h3>
+<p class="font-body-sm text-on-surface-variant">Qty: 30 Tablets</p>
+<span class="inline-block bg-secondary-container text-on-secondary-container font-label-md text-label-md px-2 py-1 rounded-full mt-xs">Prescription Confirmed</span>
+</div>
+<span class="font-body-md text-on-surface font-semibold">$12.00</span>
+</div>
+<!-- Item 2 -->
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-body-md text-on-surface font-semibold">Daily Multivitamin</h3>
+<p class="font-body-sm text-on-surface-variant">Qty: 60 Gummies</p>
+</div>
+<span class="font-body-md text-on-surface font-semibold">$24.50</span>
+</div>
+</div>
+<div class="border-t border-surface-variant pt-md space-y-sm mb-md">
+<div class="flex justify-between font-body-md text-on-surface-variant">
+<span>Subtotal</span>
+<span>$36.50</span>
+</div>
+<div class="flex justify-between font-body-md text-on-surface-variant">
+<span>Shipping</span>
+<span>$5.00</span>
+</div>
+<div class="flex justify-between font-body-md text-on-surface-variant">
+<span>Estimated Tax</span>
+<span>$3.10</span>
+</div>
+</div>
+<div class="border-t border-surface-variant pt-md flex justify-between items-center mb-lg">
+<span class="font-title-md text-title-md text-on-surface">Total</span>
+<span class="font-title-md text-title-md text-primary">$44.60</span>
+</div>
+<!-- Trust Indicators -->
+<div class="bg-surface-container-low rounded-lg p-sm flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-xs">verified_user</span>
+<div>
+<p class="font-label-md text-on-surface font-semibold">Secure Checkout</p>
+<p class="font-body-sm text-on-surface-variant text-[12px] leading-tight mt-xs">Your data is encrypted and handled in compliance with HIPAA regulations.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PharmaCare - AI Consultation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e1e2e4",
+                        "outline": "#6e7a73",
+                        "primary-fixed-dim": "#71dab1",
+                        "on-primary-fixed-variant": "#00513b",
+                        "secondary-container": "#baece9",
+                        "primary": "#00694d",
+                        "on-secondary-fixed-variant": "#1c4e4c",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#002116",
+                        "background": "#f8f9fb",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#8df7cc",
+                        "on-surface": "#191c1e",
+                        "secondary": "#366664",
+                        "outline-variant": "#bdcac1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#006c4f",
+                        "surface-variant": "#e1e2e4",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "surface-container": "#edeef0",
+                        "surface-bright": "#f8f9fb",
+                        "primary-container": "#008562",
+                        "surface-dim": "#d9dadc",
+                        "tertiary-fixed": "#d8e2ff",
+                        "inverse-primary": "#71dab1",
+                        "surface-container-high": "#e7e8ea",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1e",
+                        "surface": "#f8f9fb",
+                        "tertiary": "#0058be",
+                        "tertiary-container": "#2170e4",
+                        "on-secondary-fixed": "#00201f",
+                        "secondary-fixed-dim": "#9ed0cd",
+                        "secondary-fixed": "#baece9",
+                        "on-tertiary-fixed": "#001a42",
+                        "surface-container-low": "#f3f4f6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#3e4943",
+                        "inverse-on-surface": "#f0f1f3",
+                        "on-tertiary-container": "#fefcff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#3d6c6a",
+                        "inverse-surface": "#2e3132",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "on-primary-container": "#f5fff8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "lg": "24px",
+                        "unit": "4px",
+                        "xl": "48px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom scrollbar for chat area */
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background-color: #bdcac1;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest border-b border-outline-variant shadow-sm docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-lg h-16 max-w-container-max mx-auto">
+<div class="flex items-center gap-md">
+<span aria-label="Menu" class="material-symbols-outlined text-primary cursor-pointer lg:hidden">menu</span>
+<h1 class="font-headline-lg text-title-md text-primary tracking-tight">PharmaCare</h1>
+</div>
+<!-- Web Navigation -->
+<nav class="hidden lg:flex items-center gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-2 rounded-md" href="#">Products</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-2 rounded-md" href="#">Orders</a>
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 active opacity-80 transition-opacity" href="#">AI Assistant</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button aria-label="shopping_cart" class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button aria-label="account_circle" class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+<button aria-label="swap_horiz" class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">swap_horiz</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Safety Disclaimer Banner -->
+<div class="bg-secondary-container text-on-secondary-fixed-variant px-lg py-sm flex items-center justify-center gap-sm shadow-sm z-40 relative">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant">info</span>
+<p class="font-body-sm text-body-sm text-center">
+<strong>Medical Disclaimer:</strong> This AI assistant provides general information only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or qualified health provider.
+        </p>
+</div>
+<!-- Main Layout Container -->
+<div class="flex flex-1 overflow-hidden max-w-container-max w-full mx-auto bg-surface-bright relative">
+<!-- SideNavBar (Hidden on Mobile, Desktop Sidebar for Topics) -->
+<aside class="hidden lg:flex flex-col w-64 bg-surface-container-low border-r border-outline-variant p-md gap-sm overflow-y-auto shrink-0 z-30 relative">
+<div class="mb-lg">
+<h2 class="font-title-md text-title-md text-on-surface mb-xs">Suggested Topics</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Common consultation areas</p>
+</div>
+<nav class="flex flex-col gap-xs flex-1">
+<a class="flex items-center gap-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">dermatology</span>
+<span class="font-body-sm text-body-sm">Skincare Routines</span>
+</a>
+<a class="flex items-center gap-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">healing</span>
+<span class="font-body-sm text-body-sm">First Aid &amp; Minor Injuries</span>
+</a>
+<a class="flex items-center gap-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">medication</span>
+<span class="font-body-sm text-body-sm">Medication Interactions</span>
+</a>
+<a class="flex items-center gap-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">nutrition</span>
+<span class="font-body-sm text-body-sm">Vitamins &amp; Supplements</span>
+</a>
+<a class="flex items-center gap-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">sick</span>
+<span class="font-body-sm text-body-sm">Cold &amp; Flu Symptoms</span>
+</a>
+</nav>
+<div class="mt-auto pt-md border-t border-outline-variant">
+<a class="flex items-center gap-md p-sm rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body-sm text-body-sm">Consultation History</span>
+</a>
+</div>
+</aside>
+<!-- Main Chat Canvas -->
+<main class="flex-1 flex flex-col h-[calc(100vh-64px-40px)] relative bg-surface-container-lowest">
+<!-- Chat Header (Mobile Context) -->
+<div class="lg:hidden flex items-center justify-between p-md border-b border-outline-variant bg-surface-container-lowest">
+<h2 class="font-title-md text-title-md text-on-surface">Consultation</h2>
+<button class="text-primary font-label-md text-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                    History
+                </button>
+</div>
+<!-- Chat Scroll Area -->
+<div class="flex-1 overflow-y-auto chat-scroll p-md lg:p-lg flex flex-col gap-lg pb-xl">
+<!-- System Greeting -->
+<div class="flex justify-center my-sm">
+<span class="bg-surface-container px-sm py-xs rounded-full font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Today, 10:42 AM</span>
+</div>
+<!-- Bot Message -->
+<div class="flex items-start gap-md max-w-[85%] lg:max-w-[70%]">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container fill">smart_toy</span>
+</div>
+<div class="flex flex-col gap-xs">
+<div class="bg-surface-container-low text-on-surface p-md rounded-2xl rounded-tl-sm shadow-sm border border-outline-variant">
+<p class="font-body-md text-body-md">Hello! I'm the PharmaCare AI Assistant. How can I help you today? You can ask me about general health topics, skincare, over-the-counter medications, or basic first aid.</p>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-start gap-md max-w-[85%] lg:max-w-[70%] self-end flex-row-reverse">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div class="flex flex-col gap-xs items-end">
+<div class="bg-primary text-on-primary p-md rounded-2xl rounded-tr-sm shadow-sm">
+<p class="font-body-md text-body-md">Hi, I've been getting some dry, itchy patches on my arms lately. The weather just got colder here. What kind of lotion or cream should I look for?</p>
+</div>
+</div>
+</div>
+<!-- Bot Message with Product Recommendation (Bento Style) -->
+<div class="flex items-start gap-md max-w-[95%] lg:max-w-[85%]">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container fill">smart_toy</span>
+</div>
+<div class="flex flex-col gap-sm w-full">
+<div class="bg-surface-container-low text-on-surface p-md rounded-2xl rounded-tl-sm shadow-sm border border-outline-variant self-start max-w-full">
+<p class="font-body-md text-body-md mb-md">Dry, itchy skin during colder months is very common, often referred to as "winter itch." The drop in humidity and indoor heating can strip moisture from your skin.</p>
+<p class="font-body-md text-body-md mb-md">For this, you'll want to look for products containing <strong>Ceramides</strong> (to restore the skin barrier), <strong>Hyaluronic Acid</strong> (to draw in moisture), and thicker <strong>ointments or creams</strong> rather than light lotions.</p>
+<p class="font-body-md text-body-md mb-sm">Here are some highly-rated options available in our pharmacy that match these criteria:</p>
+<!-- Product Recommendations Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mt-md">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md shadow-sm hover:shadow-md transition-shadow flex flex-col gap-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-secondary-container text-on-secondary-container font-label-md text-label-md px-2 py-1 rounded-bl-lg z-10">In Stock</div>
+<div class="flex gap-md">
+<div class="w-20 h-20 bg-surface-container-low rounded-lg shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-primary">medication</span>
+</div>
+<div class="flex flex-col flex-1 justify-center">
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-1">Cerave Moisturizing Cream</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">With 3 Essential Ceramides</p>
+<p class="font-title-md text-title-md text-primary mt-auto">$18.99</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-sm pt-sm border-t border-outline-variant">
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="font-label-md text-label-md">Dermatologist Recommended</span>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-3 py-1.5 rounded-full transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                                            Add
+                                        </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md shadow-sm hover:shadow-md transition-shadow flex flex-col gap-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-secondary-container text-on-secondary-container font-label-md text-label-md px-2 py-1 rounded-bl-lg z-10">In Stock</div>
+<div class="flex gap-md">
+<div class="w-20 h-20 bg-surface-container-low rounded-lg shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-outline-variant">vaccines</span>
+</div>
+<div class="flex flex-col flex-1 justify-center">
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-1">Aquaphor Healing Ointment</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Advanced Therapy</p>
+<p class="font-title-md text-title-md text-primary mt-auto">$14.50</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-sm pt-sm border-t border-outline-variant">
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-[16px]">water_drop</span>
+<span class="font-label-md text-label-md">Deep Hydration</span>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-3 py-1.5 rounded-full transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                                            Add
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Suggestion Chips -->
+<div class="flex flex-wrap gap-sm ml-lg">
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-sm text-body-sm px-4 py-2 rounded-full transition-colors flex items-center gap-xs shadow-sm">
+<span class="material-symbols-outlined text-[16px]">add</span> How often should I apply it?
+                            </button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-sm text-body-sm px-4 py-2 rounded-full transition-colors flex items-center gap-xs shadow-sm">
+<span class="material-symbols-outlined text-[16px]">add</span> What if it doesn't improve?
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-md bg-surface-container-lowest border-t border-outline-variant">
+<div class="max-w-4xl mx-auto flex items-end gap-sm bg-surface-container-low p-sm rounded-2xl border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<button aria-label="Attach image" class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full shrink-0">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant py-2 min-h-[44px] max-h-[120px]" placeholder="Type your health or product question here..." rows="1" style="scrollbar-width: none;"></textarea>
+<button aria-label="Send message" class="p-2 bg-primary text-on-primary rounded-full hover:bg-primary-container transition-colors shrink-0 flex items-center justify-center w-10 h-10">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<div class="text-center mt-xs">
+<span class="font-label-md text-label-md text-on-surface-variant opacity-70">AI can make mistakes. Verify important information with a pharmacist.</span>
+</div>
+</div>
+</main>
+</div>
+</body></html>

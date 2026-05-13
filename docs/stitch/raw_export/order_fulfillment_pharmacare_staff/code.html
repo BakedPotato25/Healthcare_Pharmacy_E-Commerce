@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Orders - PharmaCare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e1e2e4",
+                        "outline": "#6e7a73",
+                        "primary-fixed-dim": "#71dab1",
+                        "on-primary-fixed-variant": "#00513b",
+                        "secondary-container": "#baece9",
+                        "primary": "#00694d",
+                        "on-secondary-fixed-variant": "#1c4e4c",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#002116",
+                        "background": "#f8f9fb",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#8df7cc",
+                        "on-surface": "#191c1e",
+                        "secondary": "#366664",
+                        "outline-variant": "#bdcac1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#006c4f",
+                        "surface-variant": "#e1e2e4",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "surface-container": "#edeef0",
+                        "surface-bright": "#f8f9fb",
+                        "primary-container": "#008562",
+                        "surface-dim": "#d9dadc",
+                        "tertiary-fixed": "#d8e2ff",
+                        "inverse-primary": "#71dab1",
+                        "surface-container-high": "#e7e8ea",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1e",
+                        "surface": "#f8f9fb",
+                        "tertiary": "#0058be",
+                        "tertiary-container": "#2170e4",
+                        "on-secondary-fixed": "#00201f",
+                        "secondary-fixed-dim": "#9ed0cd",
+                        "secondary-fixed": "#baece9",
+                        "on-tertiary-fixed": "#001a42",
+                        "surface-container-low": "#f3f4f6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#3e4943",
+                        "inverse-on-surface": "#f0f1f3",
+                        "on-tertiary-container": "#fefcff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#3d6c6a",
+                        "inverse-surface": "#2e3132",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "on-primary-container": "#f5fff8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "lg": "24px",
+                        "unit": "4px",
+                        "xl": "48px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface text-body-md flex h-screen overflow-hidden antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top App Bar (Mobile Only for Shell) -->
+<header class="md:hidden bg-surface-container-lowest text-primary font-body-md text-body-md shadow-sm fixed w-full top-0 z-50 border-b border-outline-variant flex justify-between items-center px-lg h-16">
+<div class="flex items-center gap-sm">
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold tracking-tight">PharmaCare</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Staff Portal) -->
+<nav class="hidden md:flex h-screen fixed left-0 top-0 w-64 z-40 bg-surface-container-low shadow-md flex-col p-md gap-sm border-r border-outline-variant">
+<!-- Header -->
+<div class="px-md py-lg border-b border-outline-variant mb-sm">
+<h1 class="font-headline-lg text-title-md text-primary font-bold tracking-tight mb-xs">Staff Portal</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Pharmacy Operations</p>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col gap-unit">
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="analytics">analytics</span>
+<span>Admin Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<!-- Active State: Orders aligns semantically with Shipping -->
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-sm text-body-sm bg-primary text-on-primary font-bold scale-[0.98] transition-transform duration-150 shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping" data-weight="fill" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<span>Shipping</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="group">group</span>
+<span>Customer CRM</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="px-sm py-md">
+<button class="w-full bg-secondary text-on-secondary font-label-md text-label-md py-sm px-md rounded-lg shadow-sm hover:bg-on-secondary-fixed-variant transition-colors flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="vaccines">vaccines</span>
+                Dispense Meds
+            </button>
+</div>
+<!-- Footer -->
+<div class="mt-auto border-t border-outline-variant pt-sm">
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 mt-16 md:mt-0 h-full overflow-hidden flex flex-col bg-surface-bright">
+<!-- Page Header & Filters -->
+<div class="bg-surface-container-lowest px-lg py-md border-b border-outline-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-md shrink-0">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Order Management</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-unit">Review and process incoming prescriptions.</p>
+</div>
+<div class="flex items-center gap-sm w-full sm:w-auto">
+<div class="relative flex-1 sm:w-64">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-xl pr-sm py-sm bg-surface-container-low border-b-2 border-transparent focus:border-primary rounded-t-DEFAULT font-body-sm text-body-sm text-on-surface placeholder:text-outline transition-colors outline-none" placeholder="Search orders..." type="text"/>
+</div>
+<button aria-label="Filter" class="p-sm border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors flex items-center gap-unit">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+<span class="font-label-md text-label-md hidden sm:inline">Filter</span>
+</button>
+</div>
+</div>
+<!-- Content Split Layout -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Orders List (Left Panel) -->
+<div class="w-full lg:w-1/2 xl:w-5/12 border-r border-outline-variant bg-surface overflow-y-auto flex flex-col">
+<!-- Filter Tabs -->
+<div class="flex gap-md px-lg py-sm border-b border-outline-variant bg-surface-container-lowest sticky top-0 z-10">
+<button class="font-label-md text-label-md text-primary border-b-2 border-primary pb-unit px-unit">All Active</button>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface pb-unit px-unit transition-colors">Pending Rx</button>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface pb-unit px-unit transition-colors">Processing</button>
+</div>
+<!-- Order List Items -->
+<div class="p-sm flex flex-col gap-xs">
+<!-- Selected Order Card -->
+<div class="bg-primary-container/10 border border-primary/30 rounded-xl p-md cursor-pointer shadow-sm relative overflow-hidden transition-all">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex justify-between items-start mb-sm">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant">ORD-9482-TX</span>
+<h3 class="font-title-md text-title-md text-on-surface">Sarah Jenkins</h3>
+</div>
+<span class="inline-flex items-center gap-unit px-sm py-unit rounded-full bg-secondary-container text-on-secondary-fixed-variant font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                Processing
+                            </span>
+</div>
+<div class="flex items-center gap-lg font-body-sm text-body-sm text-on-surface-variant mt-sm">
+<span class="flex items-center gap-unit"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 10:42 AM</span>
+<span class="flex items-center gap-unit"><span class="material-symbols-outlined text-[16px]" data-icon="medication">medication</span> 2 Items</span>
+<span class="flex items-center gap-unit font-bold text-on-surface">$142.50</span>
+</div>
+</div>
+<!-- Unselected Order Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md cursor-pointer hover:shadow-md hover:border-outline transition-all">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant">ORD-9481-CA</span>
+<h3 class="font-title-md text-title-md text-on-surface">Michael Chen</h3>
+</div>
+<span class="inline-flex items-center gap-unit px-sm py-unit rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md border border-outline-variant">
+                                Pending Rx
+                            </span>
+</div>
+<div class="flex items-center gap-lg font-body-sm text-body-sm text-on-surface-variant mt-sm">
+<span class="flex items-center gap-unit"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 09:15 AM</span>
+<span class="flex items-center gap-unit"><span class="material-symbols-outlined text-[16px]" data-icon="medication">medication</span> 1 Item</span>
+<span class="flex items-center gap-unit font-bold text-on-surface">$28.00</span>
+</div>
+</div>
+<!-- Unselected Order Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md cursor-pointer hover:shadow-md hover:border-outline transition-all">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant">ORD-9480-NY</span>
+<h3 class="font-title-md text-title-md text-on-surface">Elena Rodriguez</h3>
+</div>
+<span class="inline-flex items-center gap-unit px-sm py-unit rounded-full bg-secondary-container text-on-secondary-fixed-variant font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                Processing
+                            </span>
+</div>
+<div class="flex items-center gap-lg font-body-sm text-body-sm text-on-surface-variant mt-sm">
+<span class="flex items-center gap-unit"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> Yesterday</span>
+<span class="flex items-center gap-unit"><span class="material-symbols-outlined text-[16px]" data-icon="medication">medication</span> 4 Items</span>
+<span class="flex items-center gap-unit font-bold text-on-surface">$315.20</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Detail Panel (Right Panel - Hidden on small screens unless activated) -->
+<div class="hidden lg:flex lg:w-1/2 xl:w-7/12 flex-col bg-surface-bright overflow-y-auto">
+<!-- Detail Header -->
+<div class="px-xl py-lg bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-10 flex justify-between items-start">
+<div>
+<div class="flex items-center gap-md mb-sm">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Order ORD-9482-TX</h2>
+<span class="inline-flex items-center gap-unit px-sm py-unit rounded-full bg-secondary-container text-on-secondary-fixed-variant font-label-md text-label-md">
+                                Processing
+                            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-sm">
+                            Placed on Oct 24, 2023 at 10:42 AM <span class="w-1 h-1 bg-outline rounded-full"></span> Standard Shipping
+                        </p>
+</div>
+<div class="flex gap-sm">
+<button class="p-sm text-on-surface-variant border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors" title="Print Invoice">
+<span class="material-symbols-outlined" data-icon="print">print</span>
+</button>
+<button class="p-sm text-on-surface-variant border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors" title="More Actions">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Detail Content (Bento Grid Style) -->
+<div class="p-xl grid grid-cols-1 xl:grid-cols-2 gap-lg">
+<!-- Customer & Shipping -->
+<div class="bg-surface-container-lowest rounded-xl p-lg border border-outline-variant shadow-sm xl:col-span-2 flex flex-col md:flex-row gap-lg">
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span> Customer Info
+                            </h3>
+<p class="font-title-md text-title-md text-on-surface mb-xs">Sarah Jenkins</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-xs">sarah.j@example.com</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">+1 (555) 123-4567</p>
+<div class="mt-md inline-block bg-tertiary-fixed text-on-tertiary-fixed-variant px-sm py-unit rounded font-label-md text-label-md">
+                                Verified Patient
+                            </div>
+</div>
+<div class="hidden md:block w-px bg-outline-variant"></div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Shipping Address
+                            </h3>
+<p class="font-body-md text-body-md text-on-surface mb-unit">4829 Clinical Ave, Suite 200</p>
+<p class="font-body-md text-body-md text-on-surface mb-sm">Austin, TX 78701</p>
+<button class="text-tertiary font-label-md text-label-md hover:underline flex items-center gap-unit">
+                                View on Map <span class="material-symbols-outlined text-[14px]" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Order Items -->
+<div class="bg-surface-container-lowest rounded-xl p-lg border border-outline-variant shadow-sm xl:col-span-2">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="prescriptions">prescriptions</span> Prescriptions &amp; Items
+                        </h3>
+<div class="divide-y divide-outline-variant border border-outline-variant rounded-lg overflow-hidden">
+<!-- Item 1 -->
+<div class="p-md flex items-start gap-md bg-surface">
+<div class="w-12 h-12 rounded bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline" data-icon="pill">pill</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h4 class="font-title-md text-title-md text-on-surface">Amoxicillin 500mg</h4>
+<span class="font-body-md text-body-md font-bold text-on-surface">$12.50</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-sm">Capsule • 30 count • Refill 1 of 3</p>
+<div class="flex items-center gap-md">
+<span class="font-label-md text-label-md px-sm py-unit bg-primary-fixed text-on-primary-fixed rounded text-xs flex items-center gap-unit">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle" data-weight="fill">check_circle</span> Rx Verified
+                                        </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Qty: 1</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-md flex items-start gap-md bg-surface">
+<div class="w-12 h-12 rounded bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline" data-icon="vaccines">vaccines</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h4 class="font-title-md text-title-md text-on-surface">Lisinopril 10mg</h4>
+<span class="font-body-md text-body-md font-bold text-on-surface">$130.00</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-sm">Tablet • 90 count • New Rx</p>
+<div class="flex items-center gap-md">
+<span class="font-label-md text-label-md px-sm py-unit bg-surface-container-highest text-on-surface-variant rounded text-xs flex items-center gap-unit">
+<span class="material-symbols-outlined text-[14px]" data-icon="pending">pending</span> Pharmacist Review Required
+                                        </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Qty: 1</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Payment Summary -->
+<div class="bg-surface-container-lowest rounded-xl p-lg border border-outline-variant shadow-sm">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="payments">payments</span> Payment Details
+                        </h3>
+<div class="space-y-sm font-body-sm text-body-sm text-on-surface-variant border-b border-outline-variant pb-md mb-md">
+<div class="flex justify-between">
+<span>Subtotal</span>
+<span>$142.50</span>
+</div>
+<div class="flex justify-between">
+<span>Shipping (Standard)</span>
+<span>$0.00</span>
+</div>
+<div class="flex justify-between">
+<span>Tax</span>
+<span>$0.00</span>
+</div>
+<div class="flex justify-between text-success">
+<span>Insurance Coverage</span>
+<span>-$20.00</span>
+</div>
+</div>
+<div class="flex justify-between items-center font-title-md text-title-md text-on-surface mb-md">
+<span>Total</span>
+<span>$122.50</span>
+</div>
+<div class="flex items-center gap-sm bg-surface-container-low p-sm rounded border border-outline-variant">
+<span class="material-symbols-outlined text-outline" data-icon="credit_card">credit_card</span>
+<span class="font-body-sm text-body-sm">Visa ending in 4242</span>
+<span class="ml-auto font-label-md text-label-md text-primary bg-primary-container/20 px-xs rounded">Paid</span>
+</div>
+</div>
+<!-- Action Controls -->
+<div class="bg-surface-container-low rounded-xl p-lg border border-outline-variant flex flex-col justify-center gap-md">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-xs flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="update">update</span> Update Status
+                        </h3>
+<div class="grid grid-cols-2 gap-sm">
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface py-sm px-md rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors flex justify-center items-center gap-unit">
+                                Request Rx Info
+                            </button>
+<button class="bg-error text-on-error py-sm px-md rounded-lg font-label-md text-label-md hover:bg-on-error-container transition-colors flex justify-center items-center gap-unit">
+                                Hold Order
+                            </button>
+</div>
+<button class="w-full bg-primary text-on-primary py-md px-md rounded-lg font-title-md text-title-md hover:bg-on-primary-fixed-variant transition-colors shadow-sm flex justify-center items-center gap-sm mt-auto">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+                            Mark Ready for Shipment
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

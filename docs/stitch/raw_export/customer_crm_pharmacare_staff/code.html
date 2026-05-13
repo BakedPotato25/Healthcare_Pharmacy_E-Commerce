@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer CRM - PharmaCare Staff</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#e1e2e4",
+                      "outline": "#6e7a73",
+                      "primary-fixed-dim": "#71dab1",
+                      "on-primary-fixed-variant": "#00513b",
+                      "secondary-container": "#baece9",
+                      "primary": "#00694d",
+                      "on-secondary-fixed-variant": "#1c4e4c",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#002116",
+                      "background": "#f8f9fb",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "primary-fixed": "#8df7cc",
+                      "on-surface": "#191c1e",
+                      "secondary": "#366664",
+                      "outline-variant": "#bdcac1",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#006c4f",
+                      "surface-variant": "#e1e2e4",
+                      "on-tertiary-fixed-variant": "#004395",
+                      "surface-container": "#edeef0",
+                      "surface-bright": "#f8f9fb",
+                      "primary-container": "#008562",
+                      "surface-dim": "#d9dadc",
+                      "tertiary-fixed": "#d8e2ff",
+                      "inverse-primary": "#71dab1",
+                      "surface-container-high": "#e7e8ea",
+                      "on-error-container": "#93000a",
+                      "on-background": "#191c1e",
+                      "surface": "#f8f9fb",
+                      "tertiary": "#0058be",
+                      "tertiary-container": "#2170e4",
+                      "on-secondary-fixed": "#00201f",
+                      "secondary-fixed-dim": "#9ed0cd",
+                      "secondary-fixed": "#baece9",
+                      "on-tertiary-fixed": "#001a42",
+                      "surface-container-low": "#f3f4f6",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#3e4943",
+                      "inverse-on-surface": "#f0f1f3",
+                      "on-tertiary-container": "#fefcff",
+                      "error-container": "#ffdad6",
+                      "on-secondary-container": "#3d6c6a",
+                      "inverse-surface": "#2e3132",
+                      "tertiary-fixed-dim": "#adc6ff",
+                      "on-primary-container": "#f5fff8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "md": "16px",
+                      "container-max": "1280px",
+                      "lg": "24px",
+                      "unit": "4px",
+                      "xl": "48px",
+                      "xs": "4px",
+                      "sm": "8px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Manrope"],
+                      "body-md": ["Inter"],
+                      "title-md": ["Inter"],
+                      "headline-lg": ["Manrope"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display-lg": ["Manrope"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for CRM panels */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bdcac1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6e7a73;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Staff Portal) -->
+<aside class="bg-surface-container-low dark:bg-surface-dim font-body-sm text-body-sm h-screen fixed left-0 top-0 w-64 z-40 shadow-md border-r border-outline-variant flex flex-col p-md gap-sm">
+<!-- Header -->
+<div class="px-sm py-md mb-sm flex items-center gap-md border-b border-outline-variant pb-lg">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-title-md text-title-md">
+<span class="material-symbols-outlined">local_pharmacy</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-primary dark:text-primary-fixed-dim m-0">Staff Portal</h2>
+<p class="text-on-surface-variant dark:text-outline text-label-md font-label-md m-0">Pharmacy Operations</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 flex flex-col gap-xs mt-sm">
+<!-- Inactive Tab -->
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface-variant">analytics</span>
+<span>Admin Dashboard</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface-variant">inventory_2</span>
+<span>Inventory</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface-variant">local_shipping</span>
+<span>Shipping</span>
+</a>
+<!-- Active Tab (Semantic Match: Staff Customers Page) -->
+<a class="flex items-center gap-md px-md py-sm bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container rounded-lg font-bold scale-[0.98] transition-transform duration-150 shadow-sm" href="#">
+<span class="material-symbols-outlined icon-fill">group</span>
+<span>Customer CRM</span>
+</a>
+</nav>
+<!-- CTA Action -->
+<div class="mt-auto pt-lg border-t border-outline-variant mb-sm">
+<button class="w-full flex items-center justify-center gap-sm bg-secondary text-on-secondary hover:bg-on-secondary-fixed-variant transition-colors py-sm px-md rounded-lg font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[18px]">prescriptions</span>
+                Dispense Meds
+            </button>
+</div>
+<!-- Footer Links -->
+<div class="flex flex-col gap-xs">
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface-variant">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper (Offsets Sidebar) -->
+<div class="ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar (Center-Aligned) -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface font-body-md text-body-md sticky top-0 z-30 shadow-sm border-b border-outline-variant dark:border-outline h-16 flex items-center px-lg transition-opacity hover:opacity-100">
+<div class="flex justify-between items-center w-full max-w-container-max mx-auto">
+<!-- Search Bar (on_right logic dictates pushing it right, so left is empty or logo) -->
+<div class="flex-1">
+<span class="font-headline-lg text-title-md text-primary dark:text-primary-fixed-dim font-bold tracking-tight">PharmaCare</span>
+</div>
+<div class="flex items-center gap-md">
+<!-- Search Input -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="pl-xl pr-md py-xs bg-surface-container hover:bg-surface-container-high focus:bg-surface-container-highest border-none rounded-full text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary outline-none transition-all w-64" placeholder="Search system..." type="text"/>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-xs ml-sm text-primary dark:text-primary-fixed-dim">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">swap_horiz</span>
+</button>
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors flex items-center justify-center ml-sm border border-outline-variant">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Workspace Canvas -->
+<main class="flex-1 p-lg xl:p-xl bg-surface-bright">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-xl">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface m-0">Customer Directory</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Manage patient records, order history, and staff notes.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container-lowest border border-outline-variant text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filters
+                    </button>
+<button class="flex items-center gap-xs px-md py-sm bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                        New Patient
+                    </button>
+</div>
+</div>
+<!-- CRM Layout Grid (Bento Style Split) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-lg lg:gap-xl items-start">
+<!-- Left Panel: Customer List Table (Spans 8 cols) -->
+<div class="xl:col-span-8 bg-surface-container-lowest rounded-xl shadow-[0_4px_24px_rgba(54,102,100,0.04)] border border-outline-variant overflow-hidden flex flex-col h-[calc(100vh-200px)]">
+<!-- Table Toolbar -->
+<div class="p-md border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<div class="relative w-full max-w-sm">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full pl-xl pr-sm py-sm bg-surface-container-low border border-outline-variant rounded-lg font-body-sm text-body-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="Search by name, email, or Rx ID..." type="text"/>
+</div>
+<div class="text-label-md font-label-md text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+                            Sort: <span class="text-primary cursor-pointer hover:underline">Last Active</span>
+</div>
+</div>
+<!-- Table Container (Scrollable) -->
+<div class="overflow-y-auto flex-1 bg-surface-container-lowest">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low sticky top-0 z-10 border-b border-outline-variant">
+<tr>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Patient Name</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant whitespace-nowrap hidden sm:table-cell">Contact</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant whitespace-nowrap text-center">Orders</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant whitespace-nowrap hidden md:table-cell">Last Active</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant whitespace-nowrap text-center">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface divide-y divide-surface-container-high">
+<!-- Selected Row Example -->
+<tr class="bg-secondary-container bg-opacity-30 border-l-4 border-l-primary cursor-pointer transition-colors relative">
+<td class="py-md px-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md font-bold shrink-0">EH</div>
+<div class="font-title-md text-[14px] leading-tight text-on-surface font-semibold">Eleanor Hayes</div>
+</div>
+</td>
+<td class="py-md px-md text-on-surface-variant hidden sm:table-cell">e.hayes@example.com</td>
+<td class="py-md px-md text-center font-semibold text-primary">24</td>
+<td class="py-md px-md text-on-surface-variant hidden md:table-cell">Oct 24, 2023</td>
+<td class="py-md px-md text-center">
+<span class="inline-flex items-center justify-center px-sm py-[2px] rounded-full font-label-md text-[10px] tracking-wide border whitespace-nowrap min-w-[80px] bg-primary-container bg-opacity-20 text-primary border-primary-container">
+                                            ACTIVE RX
+                                        </span>
+</td>
+</tr>
+<!-- Standard Rows -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors border-l-4 border-l-transparent">
+<td class="py-md px-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-label-md font-bold shrink-0">MR</div>
+<div class="font-body-sm text-on-surface font-semibold">Marcus Rivas</div>
+</div>
+</td>
+<td class="py-md px-md text-on-surface-variant hidden sm:table-cell">m.rivas.88@mail.com</td>
+<td class="py-md px-md text-center">8</td>
+<td class="py-md px-md text-on-surface-variant hidden md:table-cell">Oct 22, 2023</td>
+<td class="py-md px-md text-center">
+<span class="inline-flex items-center justify-center px-sm py-[2px] rounded-full font-label-md text-[10px] tracking-wide border whitespace-nowrap min-w-[80px] bg-surface-container-highest text-on-surface-variant border-outline-variant">
+                                            PENDING
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors border-l-4 border-l-transparent">
+<td class="py-md px-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md font-bold shrink-0">SC</div>
+<div class="font-body-sm text-on-surface font-semibold">Sarah Chen</div>
+</div>
+</td>
+<td class="py-md px-md text-on-surface-variant hidden sm:table-cell">schen.tech@domain.net</td>
+<td class="py-md px-md text-center">41</td>
+<td class="py-md px-md text-on-surface-variant hidden md:table-cell">Oct 15, 2023</td>
+<td class="py-md px-md text-center">
+<span class="inline-flex items-center justify-center px-sm py-[2px] rounded-full font-label-md text-[10px] tracking-wide border whitespace-nowrap min-w-[80px] bg-primary-container bg-opacity-20 text-primary border-primary-container">
+                                            ACTIVE RX
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors border-l-4 border-l-transparent">
+<td class="py-md px-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-label-md font-bold shrink-0">JW</div>
+<div class="font-body-sm text-on-surface font-semibold">Jameson Wright</div>
+</div>
+</td>
+<td class="py-md px-md text-on-surface-variant hidden sm:table-cell">jwright_home@isp.com</td>
+<td class="py-md px-md text-center">2</td>
+<td class="py-md px-md text-on-surface-variant hidden md:table-cell">Sep 04, 2023</td>
+<td class="py-md px-md text-center">
+<span class="inline-flex items-center justify-center px-sm py-[2px] rounded-full font-label-md text-[10px] tracking-wide border whitespace-nowrap min-w-[80px] bg-error-container text-on-error-container border-error">
+                                            ACTION REQ
+                                        </span>
+</td>
+</tr>
+<!-- Filler rows to show scrolling -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors border-l-4 border-l-transparent">
+<td class="py-md px-md"><div class="flex items-center gap-sm"><div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md font-bold shrink-0">PL</div><div class="font-body-sm text-on-surface font-semibold">Priya Patel</div></div></td>
+<td class="py-md px-md text-on-surface-variant hidden sm:table-cell">priya.p@example.com</td><td class="py-md px-md text-center">15</td><td class="py-md px-md text-on-surface-variant hidden md:table-cell">Aug 30, 2023</td><td class="py-md px-md text-center"><span class="inline-flex items-center justify-center px-sm py-[2px] rounded-full font-label-md text-[10px] tracking-wide border whitespace-nowrap min-w-[80px] bg-surface-container-highest text-on-surface-variant border-outline-variant">INACTIVE</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors border-l-4 border-l-transparent">
+<td class="py-md px-md"><div class="flex items-center gap-sm"><div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-label-md font-bold shrink-0">DK</div><div class="font-body-sm text-on-surface font-semibold">David Kim</div></div></td>
+<td class="py-md px-md text-on-surface-variant hidden sm:table-cell">dkim99@mail.com</td><td class="py-md px-md text-center">11</td><td class="py-md px-md text-on-surface-variant hidden md:table-cell">Aug 28, 2023</td><td class="py-md px-md text-center"><span class="inline-flex items-center justify-center px-sm py-[2px] rounded-full font-label-md text-[10px] tracking-wide border whitespace-nowrap min-w-[80px] bg-primary-container bg-opacity-20 text-primary border-primary-container">ACTIVE RX</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination Footer -->
+<div class="p-sm border-t border-outline-variant bg-surface-container-lowest flex justify-between items-center text-label-md font-label-md text-on-surface-variant">
+<span>Showing 1-6 of 142 patients</span>
+<div class="flex gap-xs">
+<button class="p-xs rounded hover:bg-surface-container transition-colors disabled:opacity-50"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="p-xs rounded hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Right Panel: Customer Detail Panel (Spans 4 cols) -->
+<div class="xl:col-span-4 bg-surface-container-lowest rounded-xl shadow-[0_8px_32px_rgba(54,102,100,0.06)] border border-outline-variant overflow-hidden flex flex-col h-[calc(100vh-200px)] sticky top-24">
+<!-- Detail Header (Hero style) -->
+<div class="relative bg-gradient-to-br from-secondary-container to-surface-container-lowest p-lg pt-xl border-b border-outline-variant">
+<!-- Abstract Background Pattern replacing complex image for speed, but applying data-alt as requested just in case -->
+<div class="absolute inset-0 opacity-10" data-alt="A subtle, clinical-modern background pattern featuring small, evenly spaced dots in a soft medical green hue. The pattern is laid over a gradient of pale teal fading into stark white, creating a clean, sterile, yet approachable aesthetic. The lighting is bright and diffuse, typical of a professional healthcare dashboard environment. The overall mood conveys precision, hygiene, and modern data organization." style="background-image: radial-gradient(circle at 10px 10px, #00694d 2px, transparent 0); background-size: 24px 24px;"></div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-lg text-headline-lg font-bold shadow-md border-4 border-surface-container-lowest mb-sm">
+                                EH
+                            </div>
+<h2 class="font-headline-lg text-[24px] text-on-surface m-0 tracking-tight">Eleanor Hayes</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs mt-xs">
+<span class="material-symbols-outlined text-[16px]">cake</span> DOB: 04/12/1955 (68)
+                            </p>
+<div class="flex gap-sm mt-md">
+<button class="flex items-center justify-center p-sm rounded-full bg-surface-container-highest text-on-surface hover:bg-outline-variant transition-colors" title="Call Patient">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</button>
+<button class="flex items-center justify-center p-sm rounded-full bg-surface-container-highest text-on-surface hover:bg-outline-variant transition-colors" title="Email Patient">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</button>
+<button class="flex items-center justify-center p-sm rounded-full bg-surface-container-highest text-on-surface hover:bg-outline-variant transition-colors" title="Edit Profile">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Detail Tabs -->
+<div class="flex border-b border-outline-variant bg-surface-container-lowest shrink-0">
+<button class="flex-1 py-sm text-center font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors border-b-2 border-transparent">Overview</button>
+<button class="flex-1 py-sm text-center font-label-md text-label-md text-primary font-bold border-b-2 border-primary bg-surface-bright">History &amp; Notes</button>
+<button class="flex-1 py-sm text-center font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors border-b-2 border-transparent">Rx Docs</button>
+</div>
+<!-- Detail Content Area (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-md bg-surface-bright flex flex-col gap-lg">
+<!-- Quick Stats Cards -->
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-container-lowest p-sm rounded-lg border border-outline-variant shadow-sm text-center">
+<p class="font-label-md text-label-md text-outline mb-xs">Total Orders</p>
+<p class="font-title-md text-[20px] text-primary">24</p>
+</div>
+<div class="bg-surface-container-lowest p-sm rounded-lg border border-outline-variant shadow-sm text-center">
+<p class="font-label-md text-label-md text-outline mb-xs">Active Rx</p>
+<p class="font-title-md text-[20px] text-secondary">3</p>
+</div>
+</div>
+<!-- Add Note Section -->
+<div class="bg-surface-container-lowest p-md rounded-lg border border-outline-variant shadow-sm">
+<h3 class="font-title-md text-[16px] text-on-surface mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">edit_note</span>
+                                Staff Notes
+                            </h3>
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-md p-sm font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none h-24 mb-sm" placeholder="Add a clinical or admin note..."></textarea>
+<div class="flex justify-end">
+<button class="bg-primary text-on-primary px-md py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm">Save Note</button>
+</div>
+</div>
+<!-- Timeline / History -->
+<div>
+<h3 class="font-title-md text-[16px] text-on-surface mb-md">Recent Activity</h3>
+<div class="relative border-l-2 border-surface-container-highest ml-sm flex flex-col gap-md pb-md">
+<!-- Timeline Item -->
+<div class="relative pl-md">
+<div class="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1 border-2 border-surface-bright"></div>
+<p class="font-label-md text-[10px] text-outline uppercase tracking-wider mb-xs">Oct 24, 2023 • 10:42 AM</p>
+<div class="bg-surface-container-lowest p-sm rounded border border-outline-variant">
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Refill Processed</p>
+<p class="font-body-sm text-[12px] text-on-surface-variant mt-xs">Lisinopril 10mg - Order #88214 shipped via FedEx.</p>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="relative pl-md">
+<div class="absolute w-3 h-3 bg-surface-container-highest rounded-full -left-[7px] top-1 border-2 border-surface-bright"></div>
+<p class="font-label-md text-[10px] text-outline uppercase tracking-wider mb-xs">Oct 18, 2023 • 2:15 PM</p>
+<div class="bg-surface-container-low p-sm rounded border border-surface-container-highest">
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Staff Note Added</p>
+<p class="font-body-sm text-[12px] text-on-surface-variant mt-xs italic">"Patient called regarding tracking number. Provided via email." - Staff: MR</p>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="relative pl-md">
+<div class="absolute w-3 h-3 bg-secondary rounded-full -left-[7px] top-1 border-2 border-surface-bright"></div>
+<p class="font-label-md text-[10px] text-outline uppercase tracking-wider mb-xs">Sep 12, 2023 • 09:00 AM</p>
+<div class="bg-surface-container-lowest p-sm rounded border border-outline-variant">
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">New Rx Received</p>
+<p class="font-body-sm text-[12px] text-on-surface-variant mt-xs">Atorvastatin 20mg received from Dr. Smith.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
