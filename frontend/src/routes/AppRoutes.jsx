@@ -14,21 +14,25 @@ import StaffProductsPage from "../pages/staff/StaffProductsPage.jsx";
 import StaffOrdersPage from "../pages/staff/StaffOrdersPage.jsx";
 import StaffShippingPage from "../pages/staff/StaffShippingPage.jsx";
 import StaffCustomersPage from "../pages/staff/StaffCustomersPage.jsx";
+import { getAccessToken } from "../api/apiClient.js";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 
 export default function AppRoutes() {
+  const isCustomerAuthenticated = Boolean(getAccessToken());
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/customer/login" replace />} />
 
       <Route path="/customer/login" element={<CustomerLoginPage />} />
       <Route path="/customer/register" element={<CustomerRegisterPage />} />
-      <Route path="/customer/dashboard" element={<CustomerDashboardPage />} />
-      <Route path="/customer/products" element={<ProductListPage />} />
-      <Route path="/customer/products/:id" element={<ProductDetailPage />} />
-      <Route path="/customer/cart" element={<CartPage />} />
-      <Route path="/customer/checkout" element={<CheckoutPage />} />
-      <Route path="/customer/orders" element={<OrdersPage />} />
-      <Route path="/customer/chatbot" element={<ChatbotPage />} />
+      <Route path="/customer/dashboard" element={<ProtectedRoute isAllowed={isCustomerAuthenticated}><CustomerDashboardPage /></ProtectedRoute>} />
+      <Route path="/customer/products" element={<ProtectedRoute isAllowed={isCustomerAuthenticated}><ProductListPage /></ProtectedRoute>} />
+      <Route path="/customer/products/:id" element={<ProtectedRoute isAllowed={isCustomerAuthenticated}><ProductDetailPage /></ProtectedRoute>} />
+      <Route path="/customer/cart" element={<ProtectedRoute isAllowed={isCustomerAuthenticated}><CartPage /></ProtectedRoute>} />
+      <Route path="/customer/checkout" element={<ProtectedRoute isAllowed={isCustomerAuthenticated}><CheckoutPage /></ProtectedRoute>} />
+      <Route path="/customer/orders" element={<ProtectedRoute isAllowed={isCustomerAuthenticated}><OrdersPage /></ProtectedRoute>} />
+      <Route path="/customer/chatbot" element={<ProtectedRoute isAllowed={isCustomerAuthenticated}><ChatbotPage /></ProtectedRoute>} />
 
       <Route path="/staff/login" element={<StaffLoginPage />} />
       <Route path="/staff/dashboard" element={<StaffDashboardPage />} />

@@ -1,5 +1,6 @@
-import { Link, NavLink } from "react-router-dom";
-import { Bell, Menu, Search, ShoppingCart, UserRound } from "lucide-react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Bell, LogOut, Menu, Search, ShoppingCart, UserRound } from "lucide-react";
+import { logout } from "../../api/authApi.js";
 
 const navItems = [
   { label: "Dashboard", to: "/customer/dashboard" },
@@ -9,6 +10,13 @@ const navItems = [
 ];
 
 export default function AppHeader() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/customer/login");
+  };
+
   return (
     <header className="sticky top-0 z-40 border-b border-pharmacare-line bg-white/95 shadow-soft backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -63,6 +71,9 @@ export default function AppHeader() {
           </button>
           <button className="rounded-full p-2 text-pharmacare-muted hover:bg-pharmacare-low" aria-label="Account">
             <UserRound size={21} />
+          </button>
+          <button className="rounded-full p-2 text-pharmacare-muted hover:bg-pharmacare-low" aria-label="Logout" type="button" onClick={handleLogout}>
+            <LogOut size={21} />
           </button>
         </div>
       </div>

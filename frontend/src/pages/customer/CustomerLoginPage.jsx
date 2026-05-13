@@ -1,7 +1,32 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { LockKeyhole, Mail, ShieldCheck } from "lucide-react";
+import { loginCustomer } from "../../api/authApi.js";
 
 export default function CustomerLoginPage() {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ email: "customer@example.com", password: "Password123!" });
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (event) => {
+    setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+    try {
+      await loginCustomer(form);
+      navigate("/customer/dashboard");
+    } catch (apiError) {
+      setError(apiError.message || "Customer login failed.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="grid min-h-screen bg-white lg:grid-cols-[1.05fr_0.95fr]">
       <section className="hidden overflow-hidden bg-pharmacare-secondary lg:block">
@@ -39,21 +64,22 @@ export default function CustomerLoginPage() {
           <h2 className="text-3xl font-semibold text-pharmacare-ink">Welcome back</h2>
           <p className="mt-2 text-sm leading-6 text-pharmacare-muted">Enter your details to access your customer portal.</p>
 
-          <form className="mt-8 space-y-5">
+          <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
             <label className="block">
               <span className="text-xs font-semibold uppercase tracking-wide text-pharmacare-muted">Email Address</span>
               <span className="relative mt-2 block">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-pharmacare-outline" size={18} />
-                <input className="h-12 w-full rounded-t-lg border-0 border-b-2 border-transparent bg-pharmacare-low pl-10 pr-4 text-pharmacare-ink outline-none focus:border-pharmacare-primary focus:bg-white focus:ring-0" placeholder="customer@example.com" type="email" />
+                <input className="h-12 w-full rounded-t-lg border-0 border-b-2 border-transparent bg-pharmacare-low pl-10 pr-4 text-pharmacare-ink outline-none focus:border-pharmacare-primary focus:bg-white focus:ring-0" name="email" onChange={handleChange} placeholder="customer@example.com" type="email" value={form.email} />
               </span>
             </label>
             <label className="block">
               <span className="text-xs font-semibold uppercase tracking-wide text-pharmacare-muted">Password</span>
               <span className="relative mt-2 block">
                 <LockKeyhole className="absolute left-3 top-1/2 -translate-y-1/2 text-pharmacare-outline" size={18} />
-                <input className="h-12 w-full rounded-t-lg border-0 border-b-2 border-transparent bg-pharmacare-low pl-10 pr-4 text-pharmacare-ink outline-none focus:border-pharmacare-primary focus:bg-white focus:ring-0" placeholder="Password123!" type="password" />
+                <input className="h-12 w-full rounded-t-lg border-0 border-b-2 border-transparent bg-pharmacare-low pl-10 pr-4 text-pharmacare-ink outline-none focus:border-pharmacare-primary focus:bg-white focus:ring-0" name="password" onChange={handleChange} placeholder="Password123!" type="password" value={form.password} />
               </span>
             </label>
+            {error ? <p className="rounded-xl bg-pharmacare-dangerSoft px-4 py-3 text-sm font-medium text-pharmacare-danger">{error}</p> : null}
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 text-pharmacare-muted">
                 <input className="rounded border-pharmacare-line text-pharmacare-primary focus:ring-pharmacare-primary" type="checkbox" />
@@ -61,8 +87,8 @@ export default function CustomerLoginPage() {
               </label>
               <a className="font-semibold text-pharmacare-primary" href="#forgot">Forgot password?</a>
             </div>
-            <button className="h-12 w-full rounded-xl bg-pharmacare-primary text-sm font-semibold text-white shadow-soft transition hover:bg-pharmacare-primaryHover" type="button">
-              Login as Customer
+            <button className="h-12 w-full rounded-xl bg-pharmacare-primary text-sm font-semibold text-white shadow-soft transition hover:bg-pharmacare-primaryHover disabled:cursor-not-allowed disabled:opacity-60" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Logging in..." : "Login as Customer"}
             </button>
           </form>
 

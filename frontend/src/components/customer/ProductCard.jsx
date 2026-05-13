@@ -3,7 +3,7 @@ import { Heart, ShoppingCart } from "lucide-react";
 import StatusBadge from "./StatusBadge.jsx";
 import { formatCurrency } from "../../data/customerMockData.js";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, onAddToCart, disabled = false }) {
   return (
     <article className="group flex h-full flex-col rounded-xl border border-pharmacare-line bg-white p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-panel">
       <div className={`relative mb-4 flex aspect-[4/3] items-center justify-center rounded-xl ${product.accent}`}>
@@ -28,7 +28,12 @@ export default function ProductCard({ product }) {
 
       <div className="mt-auto flex items-center justify-between gap-3 pt-5">
         <span className="text-xl font-semibold text-pharmacare-ink">{formatCurrency(product.price)}</span>
-        <button className="inline-flex h-10 items-center gap-2 rounded-lg bg-pharmacare-primary px-3 text-sm font-semibold text-white transition hover:bg-pharmacare-primaryHover">
+        <button
+          className="inline-flex h-10 items-center gap-2 rounded-lg bg-pharmacare-primary px-3 text-sm font-semibold text-white transition hover:bg-pharmacare-primaryHover disabled:cursor-not-allowed disabled:opacity-60"
+          type="button"
+          disabled={disabled}
+          onClick={() => onAddToCart?.(product)}
+        >
           <ShoppingCart size={17} />
           Add
         </button>

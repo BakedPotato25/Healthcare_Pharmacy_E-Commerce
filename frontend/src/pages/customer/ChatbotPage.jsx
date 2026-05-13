@@ -1,9 +1,49 @@
+import { useState } from "react";
 import { ImagePlus, Info, Send, Sparkles } from "lucide-react";
+import { sendChatMessage } from "../../api/chatApi.js";
 import AppHeader from "../../components/customer/AppHeader.jsx";
 import ChatMessageBubble from "../../components/customer/ChatMessageBubble.jsx";
 import { chatMessages, categories } from "../../data/customerMockData.js";
 
 export default function ChatbotPage() {
+  const [messages, setMessages] = useState(chatMessages);
+  const [messageText, setMessageText] = useState("");
+  const [notice, setNotice] = useState("Using fallback demo chat until /api/chat/ is implemented by chatbot_service.");
+  const [isSending, setIsSending] = useState(false);
+
+  const handleSend = async () => {
+    const trimmedMessage = messageText.trim();
+    if (!trimmedMessage) {
+      return;
+    }
+
+    setMessages((current) => [...current, { sender: "user", text: trimmedMessage }]);
+    setMessageText("");
+    setIsSending(true);
+    try {
+      const response = await sendChatMessage(trimmedMessage);
+      setMessages((current) => [
+        ...current,
+        {
+          sender: "assistant",
+          text: response.response || response.message || response.answer || "I can provide general product guidance only.",
+        },
+      ]);
+      setNotice("");
+    } catch {
+      setMessages((current) => [
+        ...current,
+        {
+          sender: "assistant",
+          text: "The chatbot API is unavailable, so this is a safe fallback response. For general product guidance, browse categories such as vitamins, skincare, oral care, first aid, and digestive health. This does not replace advice from a doctor or pharmacist.",
+        },
+      ]);
+      setNotice("Using fallback demo chat because the API Gateway or chatbot endpoint is unavailable.");
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-pharmacare-bg">
       <AppHeader />
@@ -43,19 +83,20 @@ export default function ChatbotPage() {
             <h1 className="text-xl font-semibold text-pharmacare-ink">AI Health Consultant</h1>
           </div>
           <section className="flex-1 space-y-5 overflow-y-auto bg-white p-4 sm:p-6">
+            {notice ? <p className="rounded-xl bg-pharmacare-warningSoft px-4 py-3 text-sm font-medium text-pharmacare-warning">{notice}</p> : null}
             <div className="text-center">
               <span className="rounded-full bg-pharmacare-low px-3 py-1 text-xs font-semibold uppercase tracking-wide text-pharmacare-muted">
                 Today, 10:42 AM
               </span>
             </div>
             <div className="flex flex-col gap-5">
-              {chatMessages.map((message, index) => (
+              {messages.map((message, index) => (
                 <ChatMessageBubble key={`${message.sender}-${index}`} message={message} />
               ))}
             </div>
             <div className="flex flex-wrap gap-2 pl-14">
               {["How often should I apply it?", "What if it does not improve?", "Show skincare products"].map((prompt) => (
-                <button key={prompt} className="rounded-full border border-pharmacare-line bg-white px-4 py-2 text-sm font-medium text-pharmacare-muted shadow-soft hover:bg-pharmacare-low">
+                <button key={prompt} className="rounded-full border border-pharmacare-line bg-white px-4 py-2 text-sm font-medium text-pharmacare-muted shadow-soft hover:bg-pharmacare-low" onClick={() => setMessageText(prompt)} type="button">
                   {prompt}
                 </button>
               ))}
@@ -67,8 +108,13 @@ export default function ChatbotPage() {
               <button className="rounded-full p-2 text-pharmacare-muted hover:text-pharmacare-primary" aria-label="Attach image">
                 <ImagePlus size={20} />
               </button>
-              <textarea className="max-h-28 min-h-11 flex-1 resize-none border-0 bg-transparent px-1 py-2 text-sm text-pharmacare-ink outline-none placeholder:text-pharmacare-muted focus:ring-0" placeholder="Type your general health or product question here..." rows="1" />
-              <button className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pharmacare-primary text-white hover:bg-pharmacare-primaryHover" aria-label="Send message">
+              <textarea className="max-h-28 min-h-11 flex-1 resize-none border-0 bg-transparent px-1 py-2 text-sm text-pharmacare-ink outline-none placeholder:text-pharmacare-muted focus:ring-0" onChange={(event) => setMessageText(event.target.value)} onKeyDown={(event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                  event.preventDefault();
+                  handleSend();
+                }
+              }} placeholder="Type your general health or product question here..." rows="1" value={messageText} />
+              <button className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pharmacare-primary text-white hover:bg-pharmacare-primaryHover disabled:cursor-not-allowed disabled:opacity-60" aria-label="Send message" disabled={isSending} onClick={handleSend} type="button">
                 <Send size={18} />
               </button>
             </div>

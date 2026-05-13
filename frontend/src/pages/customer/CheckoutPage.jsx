@@ -1,11 +1,76 @@
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, CreditCard, LockKeyhole, MapPin, ShieldCheck, Truck } from "lucide-react";
+import { getCart } from "../../api/cartApi.js";
+import { normalizeCartItem } from "../../api/normalizers.js";
+import { checkoutOrder } from "../../api/orderApi.js";
 import CustomerShell from "../../components/customer/CustomerShell.jsx";
-import { cartItems, formatCurrency } from "../../data/customerMockData.js";
+import { cartItems as fallbackCartItems, formatCurrency } from "../../data/customerMockData.js";
 
 export default function CheckoutPage() {
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = 5;
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+  const [notice, setNotice] = useState("");
+  const [isFallback, setIsFallback] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState({
+    firstName: "Jane",
+    lastName: "Customer",
+    street: "123 Medical Way",
+    city: "Seattle",
+    state: "WA",
+    zip: "98101",
+    phone: "555-123-4567",
+    note: "",
+  });
+
+  useEffect(() => {
+    async function loadCart() {
+      try {
+        const cart = await getCart();
+        setCartItems((cart.items ?? []).map(normalizeCartItem));
+        setNotice("");
+        setIsFallback(false);
+      } catch {
+        setCartItems(fallbackCartItems.map((item) => ({ ...item, lineTotal: item.price * item.quantity })));
+        setNotice("Using fallback demo cart because the API Gateway or cart endpoint is unavailable. Checkout is disabled for fallback data.");
+        setIsFallback(true);
+      }
+    }
+
+    loadCart();
+  }, []);
+
+  const subtotal = useMemo(() => cartItems.reduce((sum, item) => sum + (item.lineTotal ?? item.price * item.quantity), 0), [cartItems]);
+  const shipping = cartItems.length ? 5 : 0;
   const total = subtotal + shipping;
+
+  const handleChange = (event) => {
+    setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+  };
+
+  const handleCheckout = async (event) => {
+    event.preventDefault();
+    if (isFallback) {
+      setNotice("Fallback demo cart cannot be checked out against the backend.");
+      return;
+    }
+    setIsSubmitting(true);
+    setNotice("");
+    try {
+      const shippingAddress = `${form.street}, ${form.city}, ${form.state} ${form.zip}${form.note ? ` - ${form.note}` : ""}`;
+      await checkoutOrder({
+        shippingAddress,
+        recipientName: `${form.firstName} ${form.lastName}`.trim(),
+        phone: form.phone,
+      });
+      navigate("/customer/orders");
+    } catch (apiError) {
+      setNotice(apiError.message || "Checkout failed.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <CustomerShell>
@@ -27,6 +92,8 @@ export default function CheckoutPage() {
           </div>
         </div>
 
+        {notice ? <p className="mb-5 rounded-xl bg-pharmacare-warningSoft px-4 py-3 text-sm font-medium text-pharmacare-warning">{notice}</p> : null}
+
         <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
           <section className="rounded-xl border border-pharmacare-line bg-white p-6 shadow-soft">
             <div className="mb-6 flex items-center gap-3">
@@ -35,37 +102,39 @@ export default function CheckoutPage() {
               </span>
               <h2 className="text-xl font-semibold text-pharmacare-ink">Shipping Information</h2>
             </div>
-            <form className="grid gap-5 md:grid-cols-2">
+            <form className="grid gap-5 md:grid-cols-2" onSubmit={handleCheckout}>
               {[
-                ["First name", "Jane"],
-                ["Last name", "Customer"],
-                ["Street address", "123 Medical Way"],
-                ["City", "Seattle"],
-                ["State", "WA"],
-                ["ZIP code", "98101"],
-                ["Phone", "(555) 123-4567"],
-                ["Delivery note", "Leave at reception"],
-              ].map(([label, placeholder]) => (
+                ["First name", "firstName", "Jane"],
+                ["Last name", "lastName", "Customer"],
+                ["Street address", "street", "123 Medical Way"],
+                ["City", "city", "Seattle"],
+                ["State", "state", "WA"],
+                ["ZIP code", "zip", "98101"],
+                ["Phone", "phone", "555-123-4567"],
+                ["Delivery note", "note", "Leave at reception"],
+              ].map(([label, name, placeholder]) => (
                 <label key={label} className={label === "Street address" ? "md:col-span-2" : ""}>
                   <span className="text-xs font-semibold uppercase tracking-wide text-pharmacare-muted">{label}</span>
-                  <input className="mt-2 h-11 w-full rounded-t-lg border-0 border-b-2 border-pharmacare-line bg-pharmacare-low px-4 outline-none focus:border-pharmacare-primary focus:bg-white focus:ring-0" placeholder={placeholder} type="text" />
+                  <input className="mt-2 h-11 w-full rounded-t-lg border-0 border-b-2 border-pharmacare-line bg-pharmacare-low px-4 outline-none focus:border-pharmacare-primary focus:bg-white focus:ring-0" name={name} onChange={handleChange} placeholder={placeholder} type="text" value={form[name]} />
                 </label>
               ))}
-            </form>
 
-            <div className="mt-6 rounded-xl border border-pharmacare-line bg-pharmacare-primarySoft p-4">
-              <div className="flex gap-3">
-                <MapPin className="mt-0.5 shrink-0 text-pharmacare-primary" size={20} />
-                <p className="text-sm leading-6 text-pharmacare-muted">
-                  Shipping form is mock-only. The real checkout flow will later create order, payment, and shipment records through the API Gateway.
-                </p>
+              <div className="md:col-span-2">
+                <div className="rounded-xl border border-pharmacare-line bg-pharmacare-primarySoft p-4">
+                  <div className="flex gap-3">
+                    <MapPin className="mt-0.5 shrink-0 text-pharmacare-primary" size={20} />
+                    <p className="text-sm leading-6 text-pharmacare-muted">
+                      Checkout calls the API Gateway to create the order, simulated payment, and pending shipment.
+                    </p>
+                  </div>
+                </div>
+
+                <button className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-pharmacare-primary px-5 text-sm font-semibold text-white shadow-soft hover:bg-pharmacare-primaryHover disabled:cursor-not-allowed disabled:opacity-60" type="submit" disabled={!cartItems.length || isFallback || isSubmitting}>
+                  {isSubmitting ? "Creating order..." : "Continue to Payment"}
+                  <ArrowRight size={17} />
+                </button>
               </div>
-            </div>
-
-            <button className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-pharmacare-primary px-5 text-sm font-semibold text-white shadow-soft hover:bg-pharmacare-primaryHover" type="button">
-              Continue to Payment
-              <ArrowRight size={17} />
-            </button>
+            </form>
           </section>
 
           <aside className="rounded-xl border border-pharmacare-line bg-white p-6 shadow-panel">
@@ -80,7 +149,7 @@ export default function CheckoutPage() {
                     <p className="truncate text-sm font-semibold text-pharmacare-ink">{item.name}</p>
                     <p className="text-xs text-pharmacare-muted">Qty {item.quantity}</p>
                   </div>
-                  <p className="text-sm font-semibold text-pharmacare-ink">{formatCurrency(item.price * item.quantity)}</p>
+                  <p className="text-sm font-semibold text-pharmacare-ink">{formatCurrency(item.lineTotal ?? item.price * item.quantity)}</p>
                 </div>
               ))}
             </div>

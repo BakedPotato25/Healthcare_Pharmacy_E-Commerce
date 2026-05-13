@@ -1,23 +1,81 @@
+import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, ShieldCheck, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
+import { getCart, removeCartItem, updateCartItem } from "../../api/cartApi.js";
+import { normalizeCartItem } from "../../api/normalizers.js";
 import CartItemRow from "../../components/customer/CartItemRow.jsx";
 import CustomerShell from "../../components/customer/CustomerShell.jsx";
 import EmptyState from "../../components/customer/EmptyState.jsx";
-import { cartItems, formatCurrency } from "../../data/customerMockData.js";
+import { cartItems as fallbackCartItems, formatCurrency } from "../../data/customerMockData.js";
 
 export default function CartPage() {
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = 5;
+  const [cartItems, setCartItems] = useState([]);
+  const [notice, setNotice] = useState("");
+  const [isFallback, setIsFallback] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const loadCart = async () => {
+    setIsLoading(true);
+    try {
+      const cart = await getCart();
+      setCartItems((cart.items ?? []).map(normalizeCartItem));
+      setNotice("");
+      setIsFallback(false);
+    } catch {
+      setCartItems(fallbackCartItems.map((item) => ({ ...item, lineTotal: item.price * item.quantity })));
+      setNotice("Using fallback demo cart because the API Gateway or cart endpoint is unavailable.");
+      setIsFallback(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadCart();
+  }, []);
+
+  const subtotal = useMemo(() => cartItems.reduce((sum, item) => sum + (item.lineTotal ?? item.price * item.quantity), 0), [cartItems]);
+  const shipping = cartItems.length ? 5 : 0;
   const total = subtotal + shipping;
+  const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  const handleUpdateQuantity = async (item, quantity) => {
+    if (isFallback) {
+      setNotice("Fallback demo cart cannot update backend quantities.");
+      return;
+    }
+    try {
+      await updateCartItem({ itemId: item.id, quantity });
+      await loadCart();
+    } catch (apiError) {
+      setNotice(apiError.message || "Unable to update cart item.");
+    }
+  };
+
+  const handleRemove = async (item) => {
+    if (isFallback) {
+      setNotice("Fallback demo cart cannot remove backend items.");
+      return;
+    }
+    try {
+      await removeCartItem(item.id);
+      await loadCart();
+    } catch (apiError) {
+      setNotice(apiError.message || "Unable to remove cart item.");
+    }
+  };
 
   return (
     <CustomerShell>
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-semibold text-pharmacare-ink">Your Cart</h1>
+        {notice ? <p className="mt-4 rounded-xl bg-pharmacare-warningSoft px-4 py-3 text-sm font-medium text-pharmacare-warning">{notice}</p> : null}
         <div className="mt-8 flex flex-col gap-8 lg:flex-row">
           <section className="flex-1 space-y-4">
-            {cartItems.length ? (
-              cartItems.map((item) => <CartItemRow key={item.id} item={item} />)
+            {isLoading ? (
+              <p className="text-sm text-pharmacare-muted">Loading cart...</p>
+            ) : cartItems.length ? (
+              cartItems.map((item) => <CartItemRow key={item.id} item={item} onUpdateQuantity={handleUpdateQuantity} onRemove={handleRemove} />)
             ) : (
               <EmptyState
                 icon={ShoppingBag}
@@ -33,7 +91,7 @@ export default function CartPage() {
               <h2 className="text-xl font-semibold text-pharmacare-ink">Order Summary</h2>
               <div className="mt-5 space-y-3 text-sm text-pharmacare-muted">
                 <div className="flex justify-between">
-                  <span>Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
+                  <span>Subtotal ({itemCount} items)</span>
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
@@ -49,13 +107,13 @@ export default function CartPage() {
                 <span>Total</span>
                 <span className="text-pharmacare-primary">{formatCurrency(total)}</span>
               </div>
-              <Link className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-pharmacare-primary text-sm font-semibold text-white shadow-soft hover:bg-pharmacare-primaryHover" to="/customer/checkout">
+              <Link className={`mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white shadow-soft ${cartItems.length ? "bg-pharmacare-primary hover:bg-pharmacare-primaryHover" : "pointer-events-none bg-pharmacare-outline"}`} to="/customer/checkout">
                 Proceed to Checkout
                 <ArrowRight size={17} />
               </Link>
               <p className="mt-4 flex gap-2 text-sm leading-6 text-pharmacare-muted">
                 <ShieldCheck className="mt-0.5 shrink-0 text-pharmacare-primary" size={18} />
-                Secure checkout mock flow. No real payment is processed in this phase.
+                Checkout creates simulated payment and shipping records through the API Gateway.
               </p>
             </div>
           </aside>

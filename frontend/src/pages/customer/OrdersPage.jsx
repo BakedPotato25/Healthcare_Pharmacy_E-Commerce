@@ -1,9 +1,54 @@
+import { useEffect, useMemo, useState } from "react";
 import { Filter, PackageCheck, Search } from "lucide-react";
+import { normalizeOrder } from "../../api/normalizers.js";
+import { getOrders } from "../../api/orderApi.js";
 import CustomerShell from "../../components/customer/CustomerShell.jsx";
 import StatusBadge from "../../components/customer/StatusBadge.jsx";
-import { formatCurrency, orders } from "../../data/customerMockData.js";
+import { formatCurrency, orders as fallbackOrders } from "../../data/customerMockData.js";
 
 export default function OrdersPage() {
+  const [orders, setOrders] = useState([]);
+  const [notice, setNotice] = useState("");
+  const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadOrders() {
+      try {
+        const orderData = await getOrders();
+        if (!isMounted) {
+          return;
+        }
+        setOrders(orderData.map(normalizeOrder));
+        setNotice("");
+      } catch {
+        if (!isMounted) {
+          return;
+        }
+        setOrders(fallbackOrders);
+        setNotice("Using fallback demo orders because the API Gateway or orders endpoint is unavailable.");
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadOrders();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const visibleOrders = useMemo(() => {
+    if (!search) {
+      return orders;
+    }
+    return orders.filter((order) => String(order.id).toLowerCase().includes(search.toLowerCase()));
+  }, [orders, search]);
+
   return (
     <CustomerShell withSidebar>
       <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
@@ -14,7 +59,7 @@ export default function OrdersPage() {
         <div className="flex flex-col gap-3 sm:flex-row">
           <label className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-pharmacare-outline" size={18} />
-            <input className="h-11 rounded-xl border border-pharmacare-line bg-white pl-10 pr-4 text-sm outline-none focus:border-pharmacare-primary" placeholder="Search orders..." type="search" />
+            <input className="h-11 rounded-xl border border-pharmacare-line bg-white pl-10 pr-4 text-sm outline-none focus:border-pharmacare-primary" onChange={(event) => setSearch(event.target.value)} placeholder="Search orders..." type="search" value={search} />
           </label>
           <button className="inline-flex h-11 items-center gap-2 rounded-xl border border-pharmacare-line bg-white px-4 text-sm font-semibold text-pharmacare-ink">
             <Filter size={17} />
@@ -31,8 +76,10 @@ export default function OrdersPage() {
         ))}
       </div>
 
+      {notice ? <p className="mb-5 rounded-xl bg-pharmacare-warningSoft px-4 py-3 text-sm font-medium text-pharmacare-warning">{notice}</p> : null}
+
       <section className="grid gap-4 xl:grid-cols-2">
-        {orders.map((order) => (
+        {isLoading ? <p className="text-sm text-pharmacare-muted">Loading orders...</p> : visibleOrders.map((order) => (
           <article key={order.id} className="rounded-xl border border-pharmacare-line bg-white p-5 shadow-soft transition hover:shadow-panel">
             <div className="flex items-start justify-between gap-4 border-b border-pharmacare-line pb-4">
               <div>
@@ -65,7 +112,7 @@ export default function OrdersPage() {
       <section className="mt-6 rounded-2xl bg-pharmacare-primary p-6 text-white shadow-panel">
         <h2 className="text-xl font-semibold">Need help with an order?</h2>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-white/85">
-          Pharmacy support content is mocked for this phase. Real order support will use customer order APIs later.
+          Order history is loaded through the API Gateway when backend services are available.
         </p>
         <button className="mt-5 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-pharmacare-primary">
           Contact Support
