@@ -8,6 +8,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() == "true"
 ALLOWED_HOSTS = [host.strip() for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if host.strip()]
 
 INSTALLED_APPS = [
+    "commerce",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -67,3 +68,8 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.JSONRenderer",
     ]
 }
+
+USER_SERVICE_URL = os.environ.get("USER_SERVICE_URL", "http://localhost:8001")
+USER_SERVICE_TIMEOUT_SECONDS = float(os.environ.get("USER_SERVICE_TIMEOUT_SECONDS", "5"))
+PRODUCT_SERVICE_URL = os.environ.get("PRODUCT_SERVICE_URL", "http://localhost:8002")
+PRODUCT_SERVICE_TIMEOUT_SECONDS = float(os.environ.get("PRODUCT_SERVICE_TIMEOUT_SECONDS", "5"))

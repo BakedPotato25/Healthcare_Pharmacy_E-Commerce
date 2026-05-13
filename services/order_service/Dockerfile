@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY manage.py .
 COPY order_service ./order_service
+COPY commerce ./commerce
 
 EXPOSE 8003
 

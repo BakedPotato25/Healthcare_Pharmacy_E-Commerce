@@ -75,6 +75,8 @@ services:
       DJANGO_DEBUG: "True"
       DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-order-service
       PORT: "8003"
+      USER_SERVICE_URL: http://pharmacare-user-service:8001
+      PRODUCT_SERVICE_URL: http://pharmacare-product-service:8002
       PAYMENT_SERVICE_URL: http://pharmacare-payment-service:8004
       SHIPPING_SERVICE_URL: http://pharmacare-shipping-service:8005
     ports:
