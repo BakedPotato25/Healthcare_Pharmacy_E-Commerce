@@ -119,6 +119,7 @@ services:
       DJANGO_DEBUG: "True"
       DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-shipping-service
       PORT: "8005"
+      USER_SERVICE_URL: http://pharmacare-user-service:8001
     ports:
       - "8005:8005"
     command: python manage.py runserver 0.0.0.0:8005

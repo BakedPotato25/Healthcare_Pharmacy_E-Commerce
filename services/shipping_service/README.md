@@ -4,9 +4,43 @@ Shipment lifecycle service for delivery tracking and staff-managed shipping stat
 
 ## Current Scope
 
-- Django REST Framework skeleton.
+- Django REST Framework shipping context.
 - `/health/` endpoint.
-- No shipment model or status transition logic yet.
+- Shipment creation, detail, and staff-managed status updates.
+- No direct access to `order_service` data. Shipments store external `order_id` and `user_id` values only.
+
+## Shipment Lifecycle
+
+New shipments always start as `pending`.
+
+Allowed statuses:
+
+- `pending`
+- `preparing`
+- `shipped`
+- `delivered`
+- `cancelled`
+
+Allowed MVP transitions:
+
+- `pending -> preparing`
+- `pending -> cancelled`
+- `preparing -> shipped`
+- `preparing -> cancelled`
+- `shipped -> delivered`
+
+Terminal statuses:
+
+- `delivered`
+- `cancelled`
+
+## APIs
+
+When called through the API Gateway, use:
+
+- `POST /api/shipments/`
+- `GET /api/shipments/:id/`
+- `PATCH /api/shipments/:id/status/`
 
 ## Local Setup
 
