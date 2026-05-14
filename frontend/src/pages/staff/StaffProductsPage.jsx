@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Filter, Plus } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { createProduct, deleteProduct, getCategories, getProducts, updateProduct } from "../../api/productApi.js";
 import { normalizeStaffProduct } from "../../api/normalizers.js";
 import ModalForm from "../../components/staff/ModalForm.jsx";
@@ -41,10 +42,14 @@ export default function StaffProductsPage() {
       setCategories(categoryData);
       setProducts(productData.map(normalizeStaffProduct));
       setNotice(successNotice);
-    } catch {
+    } catch (apiError) {
       setCategories([]);
       setProducts([]);
-      setNotice("Using fallback inventory because the API Gateway or product service is unavailable.");
+      setNotice(
+        isServiceUnavailable(apiError)
+          ? "Using fallback inventory because the API Gateway or product service is unavailable."
+          : apiError.message || "Unable to load products from the API Gateway.",
+      );
     }
   }
 
@@ -71,6 +76,10 @@ export default function StaffProductsPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isFallback) {
+      setNotice("Fallback inventory cannot be saved. Start the backend services to manage products.");
+      return;
+    }
     setIsSubmitting(true);
     try {
       const payload = {

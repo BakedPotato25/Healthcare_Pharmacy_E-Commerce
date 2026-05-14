@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Edit3, Mail, StickyNote } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { normalizeStaffCustomer } from "../../api/normalizers.js";
 import { getCustomers } from "../../api/userApi.js";
 import CustomerTable from "../../components/staff/CustomerTable.jsx";
@@ -22,12 +23,17 @@ export default function StaffCustomersPage() {
         }
         setCustomers(customerData.map(normalizeStaffCustomer));
         setNotice("Customer accounts loaded from /api/users/?role=customer. Order counts remain TODO for a later aggregation endpoint.");
-      } catch {
+      } catch (apiError) {
         if (!isMounted) {
           return;
         }
-        setCustomers(customerRows);
-        setNotice("Using fallback customer data because the API Gateway or user_service customer endpoint is unavailable. TODO: replace mock CRM details when richer customer APIs exist.");
+        if (isServiceUnavailable(apiError, { includeNotFound: true })) {
+          setCustomers(customerRows);
+          setNotice("Using fallback customer data because the API Gateway or user_service customer endpoint is unavailable. TODO: replace mock CRM details when richer customer APIs exist.");
+        } else {
+          setCustomers([]);
+          setNotice(apiError.message || "Unable to load customer accounts from the API Gateway.");
+        }
       }
     }
 
@@ -37,7 +43,8 @@ export default function StaffCustomersPage() {
     };
   }, []);
 
-  const selectedCustomer = customers[0] || customerRows[0];
+  const isFallback = notice.startsWith("Using fallback");
+  const selectedCustomer = customers[0] || (isFallback ? customerRows[0] : null);
 
   return (
     <StaffShell title="Customer Directory" subtitle="Manage customer account context, order history, and staff notes.">
@@ -45,7 +52,7 @@ export default function StaffCustomersPage() {
       <div className="grid gap-6 xl:grid-cols-[1fr_380px]">
         <CustomerTable customers={customers} notice="Customer accounts loaded through the API Gateway." />
 
-        <aside className="rounded-xl border border-pharmacare-line bg-white shadow-panel">
+        {selectedCustomer ? <aside className="rounded-xl border border-pharmacare-line bg-white shadow-panel">
           <div className="border-b border-pharmacare-line p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -91,7 +98,7 @@ export default function StaffCustomersPage() {
               Save Note
             </button>
           </div>
-        </aside>
+        </aside> : <aside className="rounded-xl border border-pharmacare-line bg-white p-5 text-sm text-pharmacare-muted shadow-panel">No customer is selected.</aside>}
       </div>
     </StaffShell>
   );

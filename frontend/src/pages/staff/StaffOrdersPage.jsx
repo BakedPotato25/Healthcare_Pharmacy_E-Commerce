@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { CreditCard, MapPin, PackageCheck, Printer } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { getOrders } from "../../api/orderApi.js";
 import { normalizeStaffOrder } from "../../api/normalizers.js";
 import OrderTable from "../../components/staff/OrderTable.jsx";
@@ -22,12 +23,17 @@ export default function StaffOrdersPage() {
         }
         setOrders(orderData.map(normalizeStaffOrder));
         setNotice("");
-      } catch {
+      } catch (apiError) {
         if (!isMounted) {
           return;
         }
-        setOrders(staffOrders);
-        setNotice("Using fallback order data because the API Gateway or order service is unavailable.");
+        if (isServiceUnavailable(apiError)) {
+          setOrders(staffOrders);
+          setNotice("Using fallback order data because the API Gateway or order service is unavailable.");
+        } else {
+          setOrders([]);
+          setNotice(apiError.message || "Unable to load staff orders from the API Gateway.");
+        }
       }
     }
 
@@ -37,8 +43,9 @@ export default function StaffOrdersPage() {
     };
   }, []);
 
-  const selectedOrder = orders[0] || staffOrders[0];
-  const selectedItems = selectedOrder.itemNames?.length ? selectedOrder.itemNames : ["Order item snapshots load from order_service"];
+  const isFallback = notice.startsWith("Using fallback");
+  const selectedOrder = orders[0] || (isFallback ? staffOrders[0] : null);
+  const selectedItems = selectedOrder?.itemNames?.length ? selectedOrder.itemNames : ["Order item snapshots load from order_service"];
 
   return (
     <StaffShell title="Order Management" subtitle="Review and process incoming pharmacy e-commerce orders.">
@@ -54,7 +61,7 @@ export default function StaffOrdersPage() {
       <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <OrderTable orders={orders} notice="Staff order queue loaded from /api/orders/." />
 
-        <section className="rounded-xl border border-pharmacare-line bg-white shadow-panel">
+        {selectedOrder ? <section className="rounded-xl border border-pharmacare-line bg-white shadow-panel">
           <div className="flex items-start justify-between gap-4 border-b border-pharmacare-line p-5">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-pharmacare-muted">Selected order</p>
@@ -116,7 +123,7 @@ export default function StaffOrdersPage() {
               </button>
             </div>
           </div>
-        </section>
+        </section> : <section className="rounded-xl border border-pharmacare-line bg-white p-5 text-sm text-pharmacare-muted shadow-panel">No order is selected.</section>}
       </div>
     </StaffShell>
   );

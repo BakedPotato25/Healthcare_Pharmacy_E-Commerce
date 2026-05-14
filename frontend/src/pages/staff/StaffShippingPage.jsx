@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { AlertTriangle, Boxes, PackageCheck, Truck } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { normalizeShipment } from "../../api/normalizers.js";
 import { getShipments, updateShipmentStatus } from "../../api/shippingApi.js";
 import DashboardMetricCard from "../../components/staff/DashboardMetricCard.jsx";
@@ -21,9 +22,14 @@ export default function StaffShippingPage() {
       const shipmentData = await getShipments();
       setShipments(shipmentData.map(normalizeShipment));
       setNotice(successNotice);
-    } catch {
-      setShipments(shipmentRows);
-      setNotice("Using fallback shipment data because the API Gateway or shipping service is unavailable.");
+    } catch (apiError) {
+      if (isServiceUnavailable(apiError)) {
+        setShipments(shipmentRows);
+        setNotice("Using fallback shipment data because the API Gateway or shipping service is unavailable.");
+      } else {
+        setShipments([]);
+        setNotice(apiError.message || "Unable to load shipments from the API Gateway.");
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Activity, AlertTriangle, Boxes, Clock, DollarSign, PackageCheck, ShoppingCart, UsersRound } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { getOrders } from "../../api/orderApi.js";
 import { getProducts } from "../../api/productApi.js";
 import { getShipments } from "../../api/shippingApi.js";
@@ -8,7 +9,6 @@ import { normalizeStaffOrder } from "../../api/normalizers.js";
 import DashboardMetricCard from "../../components/staff/DashboardMetricCard.jsx";
 import OrderTable from "../../components/staff/OrderTable.jsx";
 import StaffShell from "../../components/staff/StaffShell.jsx";
-import { staffMetrics, staffOrders } from "../../data/staffMockData.js";
 
 export default function StaffDashboardPage() {
   const [orders, setOrders] = useState([]);
@@ -22,7 +22,7 @@ export default function StaffDashboardPage() {
 
     async function loadDashboard() {
       try {
-        const [orderData, productData, shipmentData, customerData] = await Promise.all([
+        const [orderResult, productResult, shipmentResult, customerResult] = await Promise.allSettled([
           getOrders(),
           getProducts({ is_active: "true" }),
           getShipments(),
@@ -31,20 +31,36 @@ export default function StaffDashboardPage() {
         if (!isMounted) {
           return;
         }
+
+        const rejectedResult = [orderResult, productResult, shipmentResult, customerResult].find(
+          (result) => result.status === "rejected" && !isServiceUnavailable(result.reason, { includeNotFound: true }),
+        );
+        if (rejectedResult) {
+          throw rejectedResult.reason;
+        }
+
+        const unavailableCount = [orderResult, productResult, shipmentResult, customerResult].filter(
+          (result) => result.status === "rejected",
+        ).length;
+        const orderData = orderResult.status === "fulfilled" ? orderResult.value : [];
+        const productData = productResult.status === "fulfilled" ? productResult.value : [];
+        const shipmentData = shipmentResult.status === "fulfilled" ? shipmentResult.value : [];
+        const customerData = customerResult.status === "fulfilled" ? customerResult.value : [];
+
         setOrders(orderData.map(normalizeStaffOrder));
         setProducts(productData);
         setShipments(shipmentData);
         setCustomers(customerData);
-        setNotice("");
-      } catch {
+        setNotice(unavailableCount ? "Dashboard summary is using available API data; one or more gateway endpoints are unavailable." : "");
+      } catch (apiError) {
         if (!isMounted) {
           return;
         }
-        setOrders(staffOrders);
+        setOrders([]);
         setProducts([]);
         setShipments([]);
         setCustomers([]);
-        setNotice("Using fallback dashboard data because one or more gateway APIs are unavailable.");
+        setNotice(apiError.message || "Unable to load staff dashboard data.");
       }
     }
 
@@ -55,9 +71,6 @@ export default function StaffDashboardPage() {
   }, []);
 
   const metrics = useMemo(() => {
-    if (notice) {
-      return staffMetrics;
-    }
     const pendingOrders = orders.filter((order) => ["pending", "created", "preparing"].includes(order.status)).length;
     const lowStockItems = products.filter((product) => Number(product.stock ?? 0) <= 10).length;
     const pendingShipments = shipments.filter((shipment) => ["pending", "preparing"].includes(shipment.status)).length;

@@ -14,7 +14,17 @@ export async function loginStaff({ email, password }) {
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
-  const role = session.user?.role;
+  setAuthSession(session);
+
+  let currentUser;
+  try {
+    currentUser = await getCurrentUser();
+  } catch (error) {
+    clearAuthSession();
+    throw error;
+  }
+
+  const role = currentUser?.role;
   if (!["staff", "admin"].includes(role)) {
     clearAuthSession();
     throw new ApiError("This account is not authorized for the staff portal.", {
@@ -22,7 +32,7 @@ export async function loginStaff({ email, password }) {
       data: { detail: "Staff or admin role is required." },
     });
   }
-  setAuthSession(session);
+  setAuthSession({ ...session, user: currentUser });
   return session;
 }
 
