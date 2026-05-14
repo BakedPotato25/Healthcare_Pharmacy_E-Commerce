@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Filter, PackageCheck, Search } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { normalizeOrder } from "../../api/normalizers.js";
 import { getOrders } from "../../api/orderApi.js";
 import CustomerShell from "../../components/customer/CustomerShell.jsx";
@@ -23,12 +24,17 @@ export default function OrdersPage() {
         }
         setOrders(orderData.map(normalizeOrder));
         setNotice("");
-      } catch {
+      } catch (apiError) {
         if (!isMounted) {
           return;
         }
-        setOrders(fallbackOrders);
-        setNotice("Using fallback demo orders because the API Gateway or orders endpoint is unavailable.");
+        if (isServiceUnavailable(apiError)) {
+          setOrders(fallbackOrders);
+          setNotice("Using fallback demo orders because the API Gateway or orders endpoint is unavailable.");
+        } else {
+          setOrders([]);
+          setNotice(apiError.message || "Unable to load orders from the API Gateway.");
+        }
       } finally {
         if (isMounted) {
           setIsLoading(false);

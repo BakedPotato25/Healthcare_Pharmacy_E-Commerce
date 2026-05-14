@@ -1,12 +1,12 @@
 import { MoreHorizontal } from "lucide-react";
 import StatusBadge from "./StatusBadge.jsx";
 
-export default function ShippingTable({ shipments }) {
+export default function ShippingTable({ shipments, notice, onStatusChange }) {
   return (
     <section className="overflow-hidden rounded-xl border border-pharmacare-line bg-white shadow-soft">
       <div className="border-b border-pharmacare-line p-4">
         <h2 className="text-xl font-semibold text-pharmacare-ink">Recent Shipments</h2>
-        <p className="mt-1 text-sm text-pharmacare-muted">Update simulated shipment status for outbound orders.</p>
+        <p className="mt-1 text-sm text-pharmacare-muted">{notice || "Update simulated shipment status for outbound orders."}</p>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[840px] text-left">
@@ -33,12 +33,12 @@ export default function ShippingTable({ shipments }) {
                 <td className="px-5 py-4 text-sm font-semibold text-pharmacare-primary">{shipment.tracking}</td>
                 <td className="px-5 py-4 text-sm text-pharmacare-muted">{shipment.eta}</td>
                 <td className="px-5 py-4">
-                  <select className="h-9 rounded-lg border border-pharmacare-line bg-pharmacare-low px-3 text-sm font-semibold text-pharmacare-ink outline-none focus:border-pharmacare-primary">
-                    <option>{shipment.status}</option>
+                  <select className="h-9 rounded-lg border border-pharmacare-line bg-pharmacare-low px-3 text-sm font-semibold text-pharmacare-ink outline-none focus:border-pharmacare-primary" value={shipment.status} onChange={(event) => onStatusChange?.(shipment, event.target.value)}>
                     <option>pending</option>
                     <option>preparing</option>
                     <option>shipped</option>
                     <option>delivered</option>
+                    <option>cancelled</option>
                   </select>
                 </td>
                 <td className="px-5 py-4 text-right">

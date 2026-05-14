@@ -14,11 +14,14 @@ import StaffProductsPage from "../pages/staff/StaffProductsPage.jsx";
 import StaffOrdersPage from "../pages/staff/StaffOrdersPage.jsx";
 import StaffShippingPage from "../pages/staff/StaffShippingPage.jsx";
 import StaffCustomersPage from "../pages/staff/StaffCustomersPage.jsx";
-import { getAccessToken } from "../api/apiClient.js";
+import { getAccessToken, getStoredUser } from "../api/apiClient.js";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
 export default function AppRoutes() {
-  const isCustomerAuthenticated = Boolean(getAccessToken());
+  const user = getStoredUser();
+  const isAuthenticated = Boolean(getAccessToken());
+  const isCustomerAuthenticated = isAuthenticated && user?.role === "customer";
+  const isStaffAuthenticated = isAuthenticated && ["staff", "admin"].includes(user?.role);
 
   return (
     <Routes>
@@ -35,11 +38,11 @@ export default function AppRoutes() {
       <Route path="/customer/chatbot" element={<ProtectedRoute isAllowed={isCustomerAuthenticated}><ChatbotPage /></ProtectedRoute>} />
 
       <Route path="/staff/login" element={<StaffLoginPage />} />
-      <Route path="/staff/dashboard" element={<StaffDashboardPage />} />
-      <Route path="/staff/products" element={<StaffProductsPage />} />
-      <Route path="/staff/orders" element={<StaffOrdersPage />} />
-      <Route path="/staff/shipping" element={<StaffShippingPage />} />
-      <Route path="/staff/customers" element={<StaffCustomersPage />} />
+      <Route path="/staff/dashboard" element={<ProtectedRoute isAllowed={isStaffAuthenticated} redirectTo="/staff/login"><StaffDashboardPage /></ProtectedRoute>} />
+      <Route path="/staff/products" element={<ProtectedRoute isAllowed={isStaffAuthenticated} redirectTo="/staff/login"><StaffProductsPage /></ProtectedRoute>} />
+      <Route path="/staff/orders" element={<ProtectedRoute isAllowed={isStaffAuthenticated} redirectTo="/staff/login"><StaffOrdersPage /></ProtectedRoute>} />
+      <Route path="/staff/shipping" element={<ProtectedRoute isAllowed={isStaffAuthenticated} redirectTo="/staff/login"><StaffShippingPage /></ProtectedRoute>} />
+      <Route path="/staff/customers" element={<ProtectedRoute isAllowed={isStaffAuthenticated} redirectTo="/staff/login"><StaffCustomersPage /></ProtectedRoute>} />
 
       <Route path="*" element={<Navigate to="/customer/login" replace />} />
     </Routes>

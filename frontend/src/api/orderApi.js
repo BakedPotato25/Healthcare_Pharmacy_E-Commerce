@@ -1,7 +1,7 @@
-import { apiRequest } from "./apiClient.js";
+import { apiRequest, unwrapCollection } from "./apiClient.js";
 
-export function getOrders() {
-  return apiRequest("/api/orders/");
+export async function getOrders() {
+  return unwrapCollection(await apiRequest("/api/orders/"));
 }
 
 export function checkoutOrder({ shippingAddress, recipientName, phone }) {

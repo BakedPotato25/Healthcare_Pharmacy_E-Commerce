@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ChevronRight, Minus, Plus, ShieldCheck, ShoppingCart } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { addCartItem } from "../../api/cartApi.js";
 import { normalizeProduct } from "../../api/normalizers.js";
 import { getProduct, getProducts } from "../../api/productApi.js";
@@ -30,19 +31,25 @@ export default function ProductDetailPage() {
         setProduct(normalizedProduct);
         setRelatedProducts(productList.filter((item) => String(item.id) !== String(id)).slice(0, 3).map(normalizeProduct));
         setNotice("");
-      } catch {
+      } catch (apiError) {
         if (!isMounted) {
           return;
         }
-        const fallbackProduct = fallbackProducts.find((item) => String(item.id) === String(id)) ?? fallbackProducts[0];
-        setProduct({ ...fallbackProduct, isFallback: true });
-        setRelatedProducts(
-          fallbackProducts
-            .filter((item) => item.id !== fallbackProduct.id)
-            .slice(0, 3)
-            .map((item) => ({ ...item, isFallback: true })),
-        );
-        setNotice("Using fallback demo product because the API Gateway or product service is unavailable.");
+        if (isServiceUnavailable(apiError)) {
+          const fallbackProduct = fallbackProducts.find((item) => String(item.id) === String(id)) ?? fallbackProducts[0];
+          setProduct({ ...fallbackProduct, isFallback: true });
+          setRelatedProducts(
+            fallbackProducts
+              .filter((item) => item.id !== fallbackProduct.id)
+              .slice(0, 3)
+              .map((item) => ({ ...item, isFallback: true })),
+          );
+          setNotice("Using fallback demo product because the API Gateway or product service is unavailable.");
+        } else {
+          setProduct(null);
+          setRelatedProducts([]);
+          setNotice(apiError.message || "Unable to load this product from the API Gateway.");
+        }
       }
     }
 
@@ -71,7 +78,9 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <CustomerShell>
-        <main className="mx-auto max-w-7xl px-4 py-8 text-sm text-pharmacare-muted sm:px-6 lg:px-8">Loading product...</main>
+        <main className="mx-auto max-w-7xl px-4 py-8 text-sm text-pharmacare-muted sm:px-6 lg:px-8">
+          {notice || "Loading product..."}
+        </main>
       </CustomerShell>
     );
   }

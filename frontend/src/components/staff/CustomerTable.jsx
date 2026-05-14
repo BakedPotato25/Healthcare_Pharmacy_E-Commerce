@@ -1,13 +1,13 @@
 import { Mail, Search } from "lucide-react";
 import StatusBadge from "./StatusBadge.jsx";
 
-export default function CustomerTable({ customers }) {
+export default function CustomerTable({ customers, notice }) {
   return (
     <section className="overflow-hidden rounded-xl border border-pharmacare-line bg-white shadow-soft">
       <div className="flex flex-col justify-between gap-3 border-b border-pharmacare-line p-4 lg:flex-row lg:items-center">
         <div>
           <h2 className="text-xl font-semibold text-pharmacare-ink">Customer Directory</h2>
-          <p className="mt-1 text-sm text-pharmacare-muted">Staff-only CRM view with mock customer activity.</p>
+          <p className="mt-1 text-sm text-pharmacare-muted">{notice || "Staff-only CRM view with customer account activity."}</p>
         </div>
         <label className="relative w-full lg:w-80">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-pharmacare-outline" size={17} />

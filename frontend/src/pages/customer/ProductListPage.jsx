@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Filter, Search } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { addCartItem } from "../../api/cartApi.js";
 import { normalizeProduct } from "../../api/normalizers.js";
 import { getCategories, getProducts } from "../../api/productApi.js";
@@ -34,13 +35,19 @@ export default function ProductListPage() {
         setCategories(categoryData.map((category) => ({ ...category, count: 10 })));
         setProducts(productData.map(normalizeProduct));
         setNotice("");
-      } catch {
+      } catch (apiError) {
         if (!isMounted) {
           return;
         }
-        setCategories(fallbackCategories);
-        setProducts(fallbackProducts.map((product) => ({ ...product, isFallback: true })));
-        setNotice("Using fallback demo catalog because the API Gateway or product service is unavailable.");
+        if (isServiceUnavailable(apiError)) {
+          setCategories(fallbackCategories);
+          setProducts(fallbackProducts.map((product) => ({ ...product, isFallback: true })));
+          setNotice("Using fallback demo catalog because the API Gateway or product service is unavailable.");
+        } else {
+          setCategories([]);
+          setProducts([]);
+          setNotice(apiError.message || "Unable to load products from the API Gateway.");
+        }
       } finally {
         if (isMounted) {
           setIsLoading(false);

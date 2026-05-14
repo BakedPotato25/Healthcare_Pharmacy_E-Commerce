@@ -1,13 +1,13 @@
 import { Edit3, MoreHorizontal, Search } from "lucide-react";
 import StatusBadge from "./StatusBadge.jsx";
 
-export default function ProductTable({ products }) {
+export default function ProductTable({ products, notice, onEdit, onDelete }) {
   return (
     <section className="overflow-hidden rounded-xl border border-pharmacare-line bg-white shadow-soft">
       <div className="flex flex-col justify-between gap-3 border-b border-pharmacare-line p-4 lg:flex-row lg:items-center">
         <div>
           <h2 className="text-xl font-semibold text-pharmacare-ink">Product Inventory</h2>
-          <p className="mt-1 text-sm text-pharmacare-muted">{products.length} mock products shown</p>
+          <p className="mt-1 text-sm text-pharmacare-muted">{notice || `${products.length} products shown`}</p>
         </div>
         <label className="relative w-full lg:w-72">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-pharmacare-outline" size={17} />
@@ -39,10 +39,10 @@ export default function ProductTable({ products }) {
                 <td className="px-5 py-4"><StatusBadge status={product.status} /></td>
                 <td className="px-5 py-4">
                   <div className="flex justify-end gap-2">
-                    <button className="rounded-lg border border-pharmacare-line p-2 text-pharmacare-muted hover:bg-pharmacare-low" aria-label="Edit product">
+                    <button className="rounded-lg border border-pharmacare-line p-2 text-pharmacare-muted hover:bg-pharmacare-low" aria-label="Edit product" onClick={() => onEdit?.(product)}>
                       <Edit3 size={16} />
                     </button>
-                    <button className="rounded-lg border border-pharmacare-line p-2 text-pharmacare-muted hover:bg-pharmacare-low" aria-label="More product actions">
+                    <button className="rounded-lg border border-pharmacare-line p-2 text-pharmacare-muted hover:bg-pharmacare-low" aria-label="Archive product" onClick={() => onDelete?.(product)}>
                       <MoreHorizontal size={16} />
                     </button>
                   </div>

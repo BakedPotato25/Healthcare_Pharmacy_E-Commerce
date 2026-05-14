@@ -10,6 +10,13 @@ from .serializers import ShipmentCreateSerializer, ShipmentSerializer, ShipmentS
 
 
 class ShipmentCreateView(APIView):
+    def get(self, request):
+        user = get_user_context(request)
+        shipments = Shipment.objects.all()
+        if not is_staff_or_admin(user):
+            shipments = shipments.filter(user_id=user["id"])
+        return Response(ShipmentSerializer(shipments, many=True).data)
+
     def post(self, request):
         user = get_user_context(request)
         serializer = ShipmentCreateSerializer(data=request.data)

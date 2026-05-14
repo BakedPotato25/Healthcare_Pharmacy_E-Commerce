@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ImagePlus, Info, Send, Sparkles } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { sendChatMessage } from "../../api/chatApi.js";
 import AppHeader from "../../components/customer/AppHeader.jsx";
 import ChatMessageBubble from "../../components/customer/ChatMessageBubble.jsx";
@@ -30,15 +31,25 @@ export default function ChatbotPage() {
         },
       ]);
       setNotice("");
-    } catch {
-      setMessages((current) => [
-        ...current,
-        {
-          sender: "assistant",
-          text: "The chatbot API is unavailable, so this is a safe fallback response. For general product guidance, browse categories such as vitamins, skincare, oral care, first aid, and digestive health. This does not replace advice from a doctor or pharmacist.",
-        },
-      ]);
-      setNotice("Using fallback demo chat because the API Gateway or chatbot endpoint is unavailable.");
+    } catch (apiError) {
+      if (isServiceUnavailable(apiError, { includeNotFound: true })) {
+        setMessages((current) => [
+          ...current,
+          {
+            sender: "assistant",
+            text: "The chatbot API is unavailable, so this is a safe fallback response. For general product guidance, browse categories such as vitamins, skincare, oral care, first aid, and digestive health. This does not replace advice from a doctor or pharmacist.",
+          },
+        ]);
+        setNotice("Using fallback demo chat because the API Gateway or chatbot endpoint is unavailable.");
+      } else {
+        setMessages((current) => [
+          ...current,
+          {
+            sender: "assistant",
+            text: apiError.message || "I could not process that request. Please try a general product question and avoid emergency or diagnostic requests.",
+          },
+        ]);
+      }
     } finally {
       setIsSending(false);
     }

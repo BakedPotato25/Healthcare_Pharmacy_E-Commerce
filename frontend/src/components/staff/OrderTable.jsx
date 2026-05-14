@@ -1,13 +1,13 @@
 import { Printer, Search } from "lucide-react";
 import StatusBadge from "./StatusBadge.jsx";
 
-export default function OrderTable({ orders, compact = false }) {
+export default function OrderTable({ orders, compact = false, notice }) {
   return (
     <section className="overflow-hidden rounded-xl border border-pharmacare-line bg-white shadow-soft">
       <div className="flex flex-col justify-between gap-3 border-b border-pharmacare-line p-4 lg:flex-row lg:items-center">
         <div>
           <h2 className="text-xl font-semibold text-pharmacare-ink">{compact ? "Recent Orders" : "Order Queue"}</h2>
-          <p className="mt-1 text-sm text-pharmacare-muted">Mock order data for staff fulfillment.</p>
+          <p className="mt-1 text-sm text-pharmacare-muted">{notice || "Order data for staff fulfillment."}</p>
         </div>
         {!compact ? (
           <label className="relative w-full lg:w-72">

@@ -19,11 +19,14 @@ export function getAccessToken() {
 }
 
 export function setAuthSession({ access, refresh, user }) {
-  if (access) {
-    localStorage.setItem(ACCESS_TOKEN_KEY, access);
+  const accessToken = access;
+  const refreshToken = refresh;
+
+  if (accessToken) {
+    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
   }
-  if (refresh) {
-    localStorage.setItem(REFRESH_TOKEN_KEY, refresh);
+  if (refreshToken) {
+    localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
   }
   if (user) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
@@ -51,8 +54,9 @@ export function getStoredUser() {
 
 export async function apiRequest(path, options = {}) {
   const token = getAccessToken();
+  const hasBody = options.body !== undefined && options.body !== null;
   const headers = {
-    "Content-Type": "application/json",
+    ...(hasBody ? { "Content-Type": "application/json" } : {}),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...options.headers,
   };
@@ -88,6 +92,28 @@ export function buildQuery(params = {}) {
   });
   const query = searchParams.toString();
   return query ? `?${query}` : "";
+}
+
+export function unwrapCollection(data) {
+  if (Array.isArray(data)) {
+    return data;
+  }
+  if (Array.isArray(data?.results)) {
+    return data.results;
+  }
+  if (Array.isArray(data?.items)) {
+    return data.items;
+  }
+  return [];
+}
+
+export function isServiceUnavailable(error, { includeNotFound = false } = {}) {
+  if (!(error instanceof ApiError)) {
+    return true;
+  }
+
+  const unavailableStatuses = includeNotFound ? [404, 502, 503, 504] : [502, 503, 504];
+  return unavailableStatuses.includes(error.status);
 }
 
 function readErrorMessage(data, fallback) {

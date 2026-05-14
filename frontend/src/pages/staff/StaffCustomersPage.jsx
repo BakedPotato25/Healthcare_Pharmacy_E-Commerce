@@ -1,16 +1,49 @@
+import { useEffect, useState } from "react";
 import { Edit3, Mail, StickyNote } from "lucide-react";
+import { normalizeStaffCustomer } from "../../api/normalizers.js";
+import { getCustomers } from "../../api/userApi.js";
 import CustomerTable from "../../components/staff/CustomerTable.jsx";
 import StaffShell from "../../components/staff/StaffShell.jsx";
 import StatusBadge from "../../components/staff/StatusBadge.jsx";
 import { customerRows } from "../../data/staffMockData.js";
 
 export default function StaffCustomersPage() {
-  const selectedCustomer = customerRows[0];
+  const [customers, setCustomers] = useState([]);
+  const [notice, setNotice] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCustomers() {
+      try {
+        const customerData = await getCustomers();
+        if (!isMounted) {
+          return;
+        }
+        setCustomers(customerData.map(normalizeStaffCustomer));
+        setNotice("Customer accounts loaded from /api/users/?role=customer. Order counts remain TODO for a later aggregation endpoint.");
+      } catch {
+        if (!isMounted) {
+          return;
+        }
+        setCustomers(customerRows);
+        setNotice("Using fallback customer data because the API Gateway or user_service customer endpoint is unavailable. TODO: replace mock CRM details when richer customer APIs exist.");
+      }
+    }
+
+    loadCustomers();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const selectedCustomer = customers[0] || customerRows[0];
 
   return (
     <StaffShell title="Customer Directory" subtitle="Manage customer account context, order history, and staff notes.">
+      {notice ? <p className="mb-5 rounded-xl bg-pharmacare-primarySoft px-4 py-3 text-sm font-medium text-pharmacare-primary">{notice}</p> : null}
       <div className="grid gap-6 xl:grid-cols-[1fr_380px]">
-        <CustomerTable customers={customerRows} />
+        <CustomerTable customers={customers} notice="Customer accounts loaded through the API Gateway." />
 
         <aside className="rounded-xl border border-pharmacare-line bg-white shadow-panel">
           <div className="border-b border-pharmacare-line p-5">

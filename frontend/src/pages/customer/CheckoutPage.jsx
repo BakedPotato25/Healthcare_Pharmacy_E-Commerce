@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, CreditCard, LockKeyhole, MapPin, ShieldCheck, Truck } from "lucide-react";
+import { isServiceUnavailable } from "../../api/apiClient.js";
 import { getCart } from "../../api/cartApi.js";
 import { normalizeCartItem } from "../../api/normalizers.js";
 import { checkoutOrder } from "../../api/orderApi.js";
@@ -31,10 +32,16 @@ export default function CheckoutPage() {
         setCartItems((cart.items ?? []).map(normalizeCartItem));
         setNotice("");
         setIsFallback(false);
-      } catch {
-        setCartItems(fallbackCartItems.map((item) => ({ ...item, lineTotal: item.price * item.quantity })));
-        setNotice("Using fallback demo cart because the API Gateway or cart endpoint is unavailable. Checkout is disabled for fallback data.");
-        setIsFallback(true);
+      } catch (apiError) {
+        if (isServiceUnavailable(apiError)) {
+          setCartItems(fallbackCartItems.map((item) => ({ ...item, lineTotal: item.price * item.quantity })));
+          setNotice("Using fallback demo cart because the API Gateway or cart endpoint is unavailable. Checkout is disabled for fallback data.");
+          setIsFallback(true);
+        } else {
+          setCartItems([]);
+          setNotice(apiError.message || "Unable to load cart from the API Gateway.");
+          setIsFallback(false);
+        }
       }
     }
 
