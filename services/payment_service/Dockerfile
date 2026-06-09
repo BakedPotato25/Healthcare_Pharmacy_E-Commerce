@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY manage.py .
 COPY payment_service ./payment_service
+COPY payments ./payments
 
 EXPOSE 8004
 

@@ -19,7 +19,7 @@ export default function StaffLoginPage() {
     setIsSubmitting(true);
     try {
       await loginStaff(form);
-      navigate("/staff/dashboard");
+      navigate("/staff/dashboard", { replace: true });
     } catch (apiError) {
       setError(apiError.message || "Staff login failed.");
     } finally {

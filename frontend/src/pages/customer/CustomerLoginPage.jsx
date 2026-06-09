@@ -19,7 +19,7 @@ export default function CustomerLoginPage() {
     setIsSubmitting(true);
     try {
       await loginCustomer(form);
-      navigate("/customer/dashboard");
+      navigate("/customer/dashboard", { replace: true });
     } catch (apiError) {
       setError(apiError.message || "Customer login failed.");
     } finally {

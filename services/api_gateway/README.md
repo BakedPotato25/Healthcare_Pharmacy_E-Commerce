@@ -83,8 +83,7 @@ curl.exe http://localhost:8000/health/services/
 ```
 
 These route checks confirm that the gateway forwards to the correct downstream
-service. They will return downstream `404` responses until the later service
-phases add the matching business APIs:
+service:
 
 ```powershell
 curl.exe -i http://localhost:8000/api/products/
