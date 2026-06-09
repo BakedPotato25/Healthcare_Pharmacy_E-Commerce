@@ -1,8 +1,8 @@
 {
   "project": "Healthcare Pharmacy E-Commerce Microservices System",
   "model_family": "TF-IDF + Logistic Regression baseline",
-  "trained_at_utc": "2026-06-09T01:57:04.569184+00:00",
-  "dataset_path": "C:\\Users\\nguye\\Desktop\\Healthcare_Pharmacy_E-Commerce\\ml\\datasets\\chatbot_training_seed.csv",
+  "trained_at_utc": "2026-06-09T02:36:42.915444+00:00",
+  "dataset_path": "ml\\datasets\\chatbot_training_seed.csv",
   "dataset_rows": 1110,
   "category_training_rows": 690,
   "test_size": 0.2,

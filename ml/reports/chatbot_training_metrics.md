@@ -1,6 +1,6 @@
 # Chatbot Baseline Training Metrics
 
-The chatbot models are simple TF-IDF + Logistic Regression baselines trained on self-seeded academic demo data.
+The chatbot models are TF-IDF + Logistic Regression baselines trained on self-seeded academic demo data.
 
 | Model | Accuracy | Precision | Recall | F1-score |
 |---|---:|---:|---:|---:|
