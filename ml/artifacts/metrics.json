@@ -1,0 +1,664 @@
+{
+  "intent": {
+    "accuracy": 0.9954954954954955,
+    "precision": 0.9957957957957958,
+    "recall": 0.9954954954954955,
+    "f1-score": 0.9955154093085127,
+    "classification_report": {
+      "baby_care_support": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "category_recommendation": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 20.0
+      },
+      "digestive_support": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "fallback": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "first_aid_support": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "greeting": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "medical_device_question": {
+        "precision": 0.9333333333333333,
+        "recall": 1.0,
+        "f1-score": 0.9655172413793104,
+        "support": 14.0
+      },
+      "medical_warning": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "oral_care_support": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "order_status_question": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "payment_question": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "product_search": {
+        "precision": 1.0,
+        "recall": 0.95,
+        "f1-score": 0.9743589743589743,
+        "support": 20.0
+      },
+      "shipping_question": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "skincare_support": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "vitamin_advice": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 14.0
+      },
+      "accuracy": 0.9954954954954955,
+      "macro avg": {
+        "precision": 0.9955555555555555,
+        "recall": 0.9966666666666666,
+        "f1-score": 0.9959917477158856,
+        "support": 222.0
+      },
+      "weighted avg": {
+        "precision": 0.9957957957957958,
+        "recall": 0.9954954954954955,
+        "f1-score": 0.9955154093085127,
+        "support": 222.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        14,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        19,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14
+      ]
+    ],
+    "labels": [
+      "baby_care_support",
+      "category_recommendation",
+      "digestive_support",
+      "fallback",
+      "first_aid_support",
+      "greeting",
+      "medical_device_question",
+      "medical_warning",
+      "oral_care_support",
+      "order_status_question",
+      "payment_question",
+      "product_search",
+      "shipping_question",
+      "skincare_support",
+      "vitamin_advice"
+    ],
+    "train_rows": 888,
+    "test_rows": 222,
+    "train_label_distribution": {
+      "baby_care_support": 56,
+      "category_recommendation": 80,
+      "digestive_support": 56,
+      "fallback": 56,
+      "first_aid_support": 56,
+      "greeting": 56,
+      "medical_device_question": 56,
+      "medical_warning": 56,
+      "oral_care_support": 56,
+      "order_status_question": 56,
+      "payment_question": 56,
+      "product_search": 80,
+      "shipping_question": 56,
+      "skincare_support": 56,
+      "vitamin_advice": 56
+    },
+    "test_label_distribution": {
+      "baby_care_support": 14,
+      "category_recommendation": 20,
+      "digestive_support": 14,
+      "fallback": 14,
+      "first_aid_support": 14,
+      "greeting": 14,
+      "medical_device_question": 14,
+      "medical_warning": 14,
+      "oral_care_support": 14,
+      "order_status_question": 14,
+      "payment_question": 14,
+      "product_search": 20,
+      "shipping_question": 14,
+      "skincare_support": 14,
+      "vitamin_advice": 14
+    }
+  },
+  "category": {
+    "accuracy": 0.9202898550724637,
+    "precision": 0.9631469979296066,
+    "recall": 0.9202898550724637,
+    "f1-score": 0.9351045161147461,
+    "classification_report": {
+      "Digestive Health": {
+        "precision": 1.0,
+        "recall": 0.8888888888888888,
+        "f1-score": 0.9411764705882353,
+        "support": 18.0
+      },
+      "First Aid": {
+        "precision": 1.0,
+        "recall": 0.7777777777777778,
+        "f1-score": 0.875,
+        "support": 18.0
+      },
+      "Medical Devices": {
+        "precision": 1.0,
+        "recall": 0.9444444444444444,
+        "f1-score": 0.9714285714285714,
+        "support": 18.0
+      },
+      "Mother & Baby": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 18.0
+      },
+      "Nutrition & Health Food": {
+        "precision": 0.42857142857142855,
+        "recall": 0.75,
+        "f1-score": 0.5454545454545454,
+        "support": 4.0
+      },
+      "OTC Medicine": {
+        "precision": 0.3,
+        "recall": 0.75,
+        "f1-score": 0.42857142857142855,
+        "support": 4.0
+      },
+      "Oral Care": {
+        "precision": 1.0,
+        "recall": 0.9444444444444444,
+        "f1-score": 0.9714285714285714,
+        "support": 18.0
+      },
+      "Personal Care": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 4.0
+      },
+      "Skincare": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 18.0
+      },
+      "Vitamins & Minerals": {
+        "precision": 1.0,
+        "recall": 0.9444444444444444,
+        "f1-score": 0.9714285714285714,
+        "support": 18.0
+      },
+      "accuracy": 0.9202898550724637,
+      "macro avg": {
+        "precision": 0.8728571428571428,
+        "recall": 0.9,
+        "f1-score": 0.8704488158899923,
+        "support": 138.0
+      },
+      "weighted avg": {
+        "precision": 0.9631469979296066,
+        "recall": 0.9202898550724637,
+        "f1-score": 0.9351045161147461,
+        "support": 138.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        16,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        14,
+        0,
+        0,
+        1,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        17,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        18,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        17,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        18,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        17
+      ]
+    ],
+    "labels": [
+      "Digestive Health",
+      "First Aid",
+      "Medical Devices",
+      "Mother & Baby",
+      "Nutrition & Health Food",
+      "OTC Medicine",
+      "Oral Care",
+      "Personal Care",
+      "Skincare",
+      "Vitamins & Minerals"
+    ],
+    "train_rows": 552,
+    "test_rows": 138,
+    "train_label_distribution": {
+      "Digestive Health": 72,
+      "First Aid": 72,
+      "Medical Devices": 72,
+      "Mother & Baby": 72,
+      "Nutrition & Health Food": 16,
+      "OTC Medicine": 16,
+      "Oral Care": 72,
+      "Personal Care": 16,
+      "Skincare": 72,
+      "Vitamins & Minerals": 72
+    },
+    "test_label_distribution": {
+      "Digestive Health": 18,
+      "First Aid": 18,
+      "Medical Devices": 18,
+      "Mother & Baby": 18,
+      "Nutrition & Health Food": 4,
+      "OTC Medicine": 4,
+      "Oral Care": 18,
+      "Personal Care": 4,
+      "Skincare": 18,
+      "Vitamins & Minerals": 18
+    }
+  }
+}

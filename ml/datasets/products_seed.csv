@@ -1,0 +1,101 @@
+id,name,slug,category,brand,description,price,stock,image_url,is_active
+1,Comfort Relief Tablets,comfort-relief-tablets,OTC Medicine,PharmaCare,Non-prescription tablets for label-directed general self-care.,6.99,120,https://example.com/images/products/comfort-relief-tablets.jpg,true
+2,Everyday Cold Care Capsules,everyday-cold-care-capsules,OTC Medicine,MediWell,OTC capsules for seasonal wellness browsing.,8.49,90,https://example.com/images/products/everyday-cold-care-capsules.jpg,true
+3,Gentle Throat Lozenges,gentle-throat-lozenges,OTC Medicine,CarePlus,Lozenges for general throat comfort.,4.25,150,https://example.com/images/products/gentle-throat-lozenges.jpg,true
+4,Cooling Vapor Rub,cooling-vapor-rub,OTC Medicine,HealthNest,Topical rub for comfort-focused home care.,5.75,80,https://example.com/images/products/cooling-vapor-rub.jpg,true
+5,Saline Nasal Spray,saline-nasal-spray,OTC Medicine,ClearAir,Drug-free saline spray for nasal moisture.,7.10,110,https://example.com/images/products/saline-nasal-spray.jpg,true
+6,Digital Fever Strips,digital-fever-strips,OTC Medicine,TempEase,Single-use temperature strips for basic home checks.,3.95,75,https://example.com/images/products/digital-fever-strips.jpg,true
+7,Non-Drowsy Allergy Tablets,non-drowsy-allergy-tablets,OTC Medicine,AllerEase,OTC allergy support for label-directed use.,9.80,70,https://example.com/images/products/non-drowsy-allergy-tablets.jpg,true
+8,Children Comfort Syrup,children-comfort-syrup,OTC Medicine,KidCare,Pediatric comfort product for caregiver-managed routines.,7.65,65,https://example.com/images/products/children-comfort-syrup.jpg,true
+9,Heat Therapy Patches,heat-therapy-patches,OTC Medicine,FlexiCare,Warming patches for comfort and relaxation.,6.40,95,https://example.com/images/products/heat-therapy-patches.jpg,true
+10,Electrolyte Sachets,electrolyte-sachets,OTC Medicine,HydraDay,Powder sachets for hydration support.,5.90,130,https://example.com/images/products/electrolyte-sachets.jpg,true
+11,Daily Probiotic Capsules,daily-probiotic-capsules,Digestive Health,GutBalance,Probiotic supplement for digestive wellness routines.,14.99,85,https://example.com/images/products/daily-probiotic-capsules.jpg,true
+12,Fiber Blend Powder,fiber-blend-powder,Digestive Health,NutriFiber,Mixable fiber powder for everyday nutrition support.,12.50,70,https://example.com/images/products/fiber-blend-powder.jpg,true
+13,Oral Rehydration Salts,oral-rehydration-salts,Digestive Health,HydraCare,Electrolyte sachets for hydration support.,4.80,140,https://example.com/images/products/oral-rehydration-salts.jpg,true
+14,Digestive Enzyme Tablets,digestive-enzyme-tablets,Digestive Health,DigestEase,Supplement tablets for general digestive support.,11.25,80,https://example.com/images/products/digestive-enzyme-tablets.jpg,true
+15,Peppermint Comfort Tea,peppermint-comfort-tea,Digestive Health,HerbalWell,Herbal tea for a gentle after-meal routine.,6.75,95,https://example.com/images/products/peppermint-comfort-tea.jpg,true
+16,Ginger Chew Packs,ginger-chew-packs,Digestive Health,NatureBite,Ginger-flavored chews for travel and daily comfort.,5.30,100,https://example.com/images/products/ginger-chew-packs.jpg,true
+17,Prebiotic Fiber Gummies,prebiotic-fiber-gummies,Digestive Health,GutBalance,Prebiotic gummies for general wellness routines.,10.40,90,https://example.com/images/products/prebiotic-fiber-gummies.jpg,true
+18,Hydration Ready Drink,hydration-ready-drink,Digestive Health,HydraDay,Ready-to-drink electrolyte beverage.,3.60,160,https://example.com/images/products/hydration-ready-drink.jpg,true
+19,Sensitive Stomach Tea,sensitive-stomach-tea,Digestive Health,HerbalWell,Caffeine-free tea blend for gentle daily use.,7.20,75,https://example.com/images/products/sensitive-stomach-tea.jpg,true
+20,Digestive Wellness Kit,digestive-wellness-kit,Digestive Health,PharmaCare,Bundle of general digestive health products.,18.95,45,https://example.com/images/products/digestive-wellness-kit.jpg,true
+21,Vitamin C Chewables,vitamin-c-chewables,Vitamins & Minerals,VitaCore,Chewable vitamin C supplement for general wellness.,8.99,120,https://example.com/images/products/vitamin-c-chewables.jpg,true
+22,Daily Multivitamin Tablets,daily-multivitamin-tablets,Vitamins & Minerals,VitaCore,Multivitamin product for adult daily routines.,13.75,100,https://example.com/images/products/daily-multivitamin-tablets.jpg,true
+23,Vitamin D3 Softgels,vitamin-d3-softgels,Vitamins & Minerals,SunWell,Vitamin D supplement for general wellness support.,10.95,90,https://example.com/images/products/vitamin-d3-softgels.jpg,true
+24,Calcium Plus Tablets,calcium-plus-tablets,Vitamins & Minerals,BoneCare,Calcium supplement for label-directed use.,12.20,85,https://example.com/images/products/calcium-plus-tablets.jpg,true
+25,Magnesium Capsules,magnesium-capsules,Vitamins & Minerals,MineralPlus,Magnesium supplement for label-directed use.,11.80,75,https://example.com/images/products/magnesium-capsules.jpg,true
+26,Iron Support Tablets,iron-support-tablets,Vitamins & Minerals,MineralPlus,Iron supplement for customers advised to use iron products.,9.70,65,https://example.com/images/products/iron-support-tablets.jpg,true
+27,Zinc Wellness Lozenges,zinc-wellness-lozenges,Vitamins & Minerals,VitaCore,Zinc supplement lozenges for wellness routines.,6.50,115,https://example.com/images/products/zinc-wellness-lozenges.jpg,true
+28,B-Complex Tablets,b-complex-tablets,Vitamins & Minerals,EnergyWell,B vitamin complex for supplement routines.,10.30,95,https://example.com/images/products/b-complex-tablets.jpg,true
+29,Kids Multivitamin Gummies,kids-multivitamin-gummies,Vitamins & Minerals,KidVita,Children's multivitamin gummies for caregiver-managed use.,9.25,105,https://example.com/images/products/kids-multivitamin-gummies.jpg,true
+30,Omega-3 Softgels,omega-3-softgels,Vitamins & Minerals,HeartWise,Omega-3 supplement for general nutrition support.,15.60,80,https://example.com/images/products/omega-3-softgels.jpg,true
+31,Baby Gentle Wash,baby-gentle-wash,Mother & Baby,TinyCare,Mild baby wash for routine bath time.,7.99,90,https://example.com/images/products/baby-gentle-wash.jpg,true
+32,Baby Moisture Lotion,baby-moisture-lotion,Mother & Baby,TinyCare,Gentle lotion for daily baby skincare routines.,8.50,85,https://example.com/images/products/baby-moisture-lotion.jpg,true
+33,Diaper Rash Cream,diaper-rash-cream,Mother & Baby,BabyShield,Barrier cream for caregiver-managed diaper care.,6.75,110,https://example.com/images/products/diaper-rash-cream.jpg,true
+34,Infant Nasal Aspirator,infant-nasal-aspirator,Mother & Baby,CareBaby,Manual aspirator for caregiver use.,9.40,70,https://example.com/images/products/infant-nasal-aspirator.jpg,true
+35,Baby Wipes Sensitive,baby-wipes-sensitive,Mother & Baby,TinyCare,Fragrance-free wipes for routine cleaning.,4.95,200,https://example.com/images/products/baby-wipes-sensitive.jpg,true
+36,Nursing Pads Pack,nursing-pads-pack,Mother & Baby,MamaCare,Disposable nursing pads for daily parent care.,6.20,95,https://example.com/images/products/nursing-pads-pack.jpg,true
+37,Baby Thermometer,baby-thermometer,Mother & Baby,TempEase,Digital thermometer for basic home temperature checks.,12.80,60,https://example.com/images/products/baby-thermometer.jpg,true
+38,Bottle Cleaning Brush,bottle-cleaning-brush,Mother & Baby,CareBaby,Bottle brush for feeding accessory cleaning.,5.40,80,https://example.com/images/products/bottle-cleaning-brush.jpg,true
+39,Toddler Toothbrush Set,toddler-toothbrush-set,Mother & Baby,TinySmile,Soft toothbrush set for toddler oral care routines.,4.60,100,https://example.com/images/products/toddler-toothbrush-set.jpg,true
+40,Baby Care Starter Kit,baby-care-starter-kit,Mother & Baby,MamaCare,Starter bundle of routine baby care essentials.,21.90,35,https://example.com/images/products/baby-care-starter-kit.jpg,true
+41,Antibacterial Hand Gel,antibacterial-hand-gel,Personal Care,CleanGuard,Hand hygiene gel for daily personal care.,3.99,180,https://example.com/images/products/antibacterial-hand-gel.jpg,true
+42,Gentle Hand Wash,gentle-hand-wash,Personal Care,CleanGuard,Mild liquid soap for frequent hand washing.,4.50,150,https://example.com/images/products/gentle-hand-wash.jpg,true
+43,Cotton Buds Pack,cotton-buds-pack,Personal Care,PureCare,Cotton buds for general personal care use.,2.80,220,https://example.com/images/products/cotton-buds-pack.jpg,true
+44,Body Cleansing Wipes,body-cleansing-wipes,Personal Care,FreshEase,Disposable cleansing wipes for travel and routines.,5.25,120,https://example.com/images/products/body-cleansing-wipes.jpg,true
+45,Deodorant Roll-On,deodorant-roll-on,Personal Care,FreshEase,Daily deodorant product for personal care.,4.90,100,https://example.com/images/products/deodorant-roll-on.jpg,true
+46,Sensitive Shaving Gel,sensitive-shaving-gel,Personal Care,SmoothCare,Shaving gel for sensitive skin routines.,6.35,80,https://example.com/images/products/sensitive-shaving-gel.jpg,true
+47,Disposable Face Masks,disposable-face-masks,Personal Care,CleanGuard,General protective face masks for daily settings.,7.75,160,https://example.com/images/products/disposable-face-masks.jpg,true
+48,Moisturizing Body Wash,moisturizing-body-wash,Personal Care,PureCare,Body wash for routine cleansing.,6.80,90,https://example.com/images/products/moisturizing-body-wash.jpg,true
+49,Travel Hygiene Kit,travel-hygiene-kit,Personal Care,PharmaCare,Compact personal hygiene bundle for travel.,11.99,55,https://example.com/images/products/travel-hygiene-kit.jpg,true
+50,Hand Cream Tube,hand-cream-tube,Personal Care,SoftHands,Moisturizing hand cream for daily comfort.,4.25,130,https://example.com/images/products/hand-cream-tube.jpg,true
+51,Digital Blood Pressure Monitor,digital-blood-pressure-monitor,Medical Devices,HomeMed,Home-use monitor for general blood pressure tracking.,42.99,35,https://example.com/images/products/digital-blood-pressure-monitor.jpg,true
+52,Pulse Oximeter,pulse-oximeter,Medical Devices,HomeMed,Finger pulse oximeter for general wellness monitoring.,28.50,45,https://example.com/images/products/pulse-oximeter.jpg,true
+53,Digital Thermometer,digital-thermometer,Medical Devices,TempEase,Digital thermometer for home temperature checks.,9.99,100,https://example.com/images/products/digital-thermometer.jpg,true
+54,Reusable Hot Cold Pack,reusable-hot-cold-pack,Medical Devices,FlexiCare,Reusable pack for hot or cold comfort routines.,8.20,85,https://example.com/images/products/reusable-hot-cold-pack.jpg,true
+55,Adjustable Wrist Support,adjustable-wrist-support,Medical Devices,FlexiCare,Support wrap for general wrist comfort.,12.75,60,https://example.com/images/products/adjustable-wrist-support.jpg,true
+56,Nebulizer Accessory Kit,nebulizer-accessory-kit,Medical Devices,BreatheWell,Replacement accessory kit for compatible home devices.,16.40,40,https://example.com/images/products/nebulizer-accessory-kit.jpg,true
+57,Weekly Pill Organizer,weekly-pill-organizer,Medical Devices,MediSort,Organizer box for medication schedule management.,5.95,110,https://example.com/images/products/weekly-pill-organizer.jpg,true
+58,Walking Cane Grip,walking-cane-grip,Medical Devices,MobilityCare,Comfort grip accessory for compatible walking canes.,7.60,50,https://example.com/images/products/walking-cane-grip.jpg,true
+59,Digital Weighing Scale,digital-weighing-scale,Medical Devices,HomeMed,Home scale for general body weight tracking.,24.30,55,https://example.com/images/products/digital-weighing-scale.jpg,true
+60,First Response Timer,first-response-timer,Medical Devices,CareTools,Digital timer for home care routines.,6.90,75,https://example.com/images/products/first-response-timer.jpg,true
+61,Adhesive Bandage Pack,adhesive-bandage-pack,First Aid,FirstCare,Assorted bandages for minor cuts and scrapes.,3.75,240,https://example.com/images/products/adhesive-bandage-pack.jpg,true
+62,Sterile Gauze Pads,sterile-gauze-pads,First Aid,FirstCare,Sterile gauze pads for basic first aid kits.,4.80,180,https://example.com/images/products/sterile-gauze-pads.jpg,true
+63,Medical Tape Roll,medical-tape-roll,First Aid,CareTape,Medical tape for securing dressings.,2.90,160,https://example.com/images/products/medical-tape-roll.jpg,true
+64,Antiseptic Wipes,antiseptic-wipes,First Aid,CleanGuard,Antiseptic wipes for basic first aid cleaning.,3.95,210,https://example.com/images/products/antiseptic-wipes.jpg,true
+65,Elastic Bandage Wrap,elastic-bandage-wrap,First Aid,FlexiCare,Elastic wrap for general support and first aid kits.,5.50,120,https://example.com/images/products/elastic-bandage-wrap.jpg,true
+66,Instant Cold Pack,instant-cold-pack,First Aid,FirstCare,Single-use cold pack for first aid comfort.,4.70,100,https://example.com/images/products/instant-cold-pack.jpg,true
+67,Tweezers and Scissors Set,tweezers-and-scissors-set,First Aid,CareTools,Basic tools for home first aid kits.,6.40,70,https://example.com/images/products/tweezers-and-scissors-set.jpg,true
+68,Burn Gel Sachets,burn-gel-sachets,First Aid,CoolAid,Cooling gel sachets for minor home first aid use.,5.90,90,https://example.com/images/products/burn-gel-sachets.jpg,true
+69,First Aid Box,first-aid-box,First Aid,FirstCare,Empty organizer box for first aid supplies.,9.85,65,https://example.com/images/products/first-aid-box.jpg,true
+70,Complete First Aid Kit,complete-first-aid-kit,First Aid,FirstCare,Assorted basic first aid supplies for home or travel.,19.95,50,https://example.com/images/products/complete-first-aid-kit.jpg,true
+71,Daily Moisturizing Cream,daily-moisturizing-cream,Skincare,DermaSoft,Moisturizer for everyday skincare routines.,9.99,110,https://example.com/images/products/daily-moisturizing-cream.jpg,true
+72,Gentle Facial Cleanser,gentle-facial-cleanser,Skincare,DermaSoft,Mild cleanser for routine face washing.,8.75,100,https://example.com/images/products/gentle-facial-cleanser.jpg,true
+73,SPF 50 Sunscreen Lotion,spf-50-sunscreen-lotion,Skincare,SunCare,Broad-spectrum sunscreen for label-directed use.,12.60,95,https://example.com/images/products/spf-50-sunscreen-lotion.jpg,true
+74,Aloe Vera Gel,aloe-vera-gel,Skincare,NatureSkin,Cooling aloe gel for general skin comfort.,6.80,130,https://example.com/images/products/aloe-vera-gel.jpg,true
+75,Lip Balm SPF,lip-balm-spf,Skincare,SunCare,Lip balm with sun protection for daily care.,3.90,160,https://example.com/images/products/lip-balm-spf.jpg,true
+76,Sensitive Skin Lotion,sensitive-skin-lotion,Skincare,DermaCalm,Fragrance-free lotion for sensitive skin routines.,10.45,80,https://example.com/images/products/sensitive-skin-lotion.jpg,true
+77,Hydrating Face Mist,hydrating-face-mist,Skincare,NatureSkin,Face mist for refreshing skincare routines.,7.25,75,https://example.com/images/products/hydrating-face-mist.jpg,true
+78,Barrier Repair Cream,barrier-repair-cream,Skincare,DermaCalm,Moisturizing cream for dry skin care routines.,11.35,70,https://example.com/images/products/barrier-repair-cream.jpg,true
+79,Hand Repair Balm,hand-repair-balm,Skincare,SoftHands,Rich balm for dry hand comfort.,5.95,120,https://example.com/images/products/hand-repair-balm.jpg,true
+80,Skincare Travel Set,skincare-travel-set,Skincare,DermaSoft,Travel-size daily skincare essentials.,14.90,55,https://example.com/images/products/skincare-travel-set.jpg,true
+81,Soft Toothbrush Duo,soft-toothbrush-duo,Oral Care,SmileCare,Soft toothbrush set for daily oral hygiene.,4.50,160,https://example.com/images/products/soft-toothbrush-duo.jpg,true
+82,Fluoride Toothpaste,fluoride-toothpaste,Oral Care,SmileCare,Toothpaste for routine brushing.,5.20,150,https://example.com/images/products/fluoride-toothpaste.jpg,true
+83,Alcohol-Free Mouthwash,alcohol-free-mouthwash,Oral Care,FreshMouth,Mouthwash for daily oral care routines.,6.75,110,https://example.com/images/products/alcohol-free-mouthwash.jpg,true
+84,Dental Floss Picks,dental-floss-picks,Oral Care,FreshMouth,Floss picks for interdental cleaning.,3.60,180,https://example.com/images/products/dental-floss-picks.jpg,true
+85,Sensitive Toothpaste,sensitive-toothpaste,Oral Care,GentleSmile,Toothpaste for sensitive oral care routines.,6.95,100,https://example.com/images/products/sensitive-toothpaste.jpg,true
+86,Tongue Cleaner,tongue-cleaner,Oral Care,SmileCare,Tongue cleaner for daily oral hygiene.,3.25,130,https://example.com/images/products/tongue-cleaner.jpg,true
+87,Kids Toothpaste,kids-toothpaste,Oral Care,TinySmile,Children's toothpaste for caregiver-supervised brushing.,4.80,120,https://example.com/images/products/kids-toothpaste.jpg,true
+88,Orthodontic Wax,orthodontic-wax,Oral Care,CareDental,Wax for comfort with orthodontic appliances.,2.95,90,https://example.com/images/products/orthodontic-wax.jpg,true
+89,Denture Cleaning Tablets,denture-cleaning-tablets,Oral Care,CareDental,Cleaning tablets for denture care routines.,7.40,80,https://example.com/images/products/denture-cleaning-tablets.jpg,true
+90,Oral Care Travel Kit,oral-care-travel-kit,Oral Care,FreshMouth,"Compact toothbrush, toothpaste, and floss kit.",8.60,75,https://example.com/images/products/oral-care-travel-kit.jpg,true
+91,Protein Shake Vanilla,protein-shake-vanilla,Nutrition & Health Food,NutriLife,Ready-to-drink protein shake for nutrition routines.,3.99,140,https://example.com/images/products/protein-shake-vanilla.jpg,true
+92,High Fiber Snack Bars,high-fiber-snack-bars,Nutrition & Health Food,NutriLife,Snack bars with fiber for everyday nutrition.,6.95,110,https://example.com/images/products/high-fiber-snack-bars.jpg,true
+93,Low Sugar Granola,low-sugar-granola,Nutrition & Health Food,DailyFuel,Granola blend for breakfast and snack routines.,7.80,85,https://example.com/images/products/low-sugar-granola.jpg,true
+94,Meal Replacement Powder,meal-replacement-powder,Nutrition & Health Food,DailyFuel,Nutrition powder for occasional meal replacement use.,18.50,60,https://example.com/images/products/meal-replacement-powder.jpg,true
+95,Herbal Wellness Tea,herbal-wellness-tea,Nutrition & Health Food,HerbalWell,Caffeine-free tea for daily wellness routines.,5.75,115,https://example.com/images/products/herbal-wellness-tea.jpg,true
+96,Electrolyte Sports Drink,electrolyte-sports-drink,Nutrition & Health Food,HydraDay,Electrolyte drink for hydration support.,2.95,180,https://example.com/images/products/electrolyte-sports-drink.jpg,true
+97,Oat Nutrition Drink,oat-nutrition-drink,Nutrition & Health Food,NutriLife,Oat-based nutrition drink for daily routines.,4.20,120,https://example.com/images/products/oat-nutrition-drink.jpg,true
+98,Mixed Nuts Portion Pack,mixed-nuts-portion-pack,Nutrition & Health Food,DailyFuel,Portion packs of mixed nuts for snacking.,8.40,90,https://example.com/images/products/mixed-nuts-portion-pack.jpg,true
+99,Chia Seed Pouch,chia-seed-pouch,Nutrition & Health Food,NatureBite,Chia seeds for adding to meals and drinks.,6.30,100,https://example.com/images/products/chia-seed-pouch.jpg,true
+100,Nutrition Starter Bundle,nutrition-starter-bundle,Nutrition & Health Food,PharmaCare,Bundle of general nutrition products for everyday use.,22.75,40,https://example.com/images/products/nutrition-starter-bundle.jpg,true

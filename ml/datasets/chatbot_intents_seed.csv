@@ -1,0 +1,16 @@
+intent,description,example_utterance,target_category,requires_medical_disclaimer
+product_search,Find named products or products matching a customer keyword.,Do you carry {product}?,,true
+category_recommendation,Suggest a safe non-prescription product category for a general need.,Which category should I browse for {need}?,,true
+digestive_support,General digestive wellness category guidance.,What can I browse for digestive comfort?,Digestive Health,true
+vitamin_advice,General supplement category guidance without clinical claims.,Can you suggest vitamins for my routine?,Vitamins & Minerals,true
+skincare_support,General skincare product category guidance.,What skincare items help with daily moisturizing?,Skincare,true
+oral_care_support,General oral hygiene product guidance.,What oral care products should I browse?,Oral Care,true
+baby_care_support,Caregiver-managed mother and baby product guidance.,What baby care products do you have?,Mother & Baby,true
+first_aid_support,Basic home first aid product guidance.,What should I add to a first aid kit?,First Aid,true
+medical_device_question,Home-use medical device product questions.,Do you sell a digital thermometer?,Medical Devices,true
+order_status_question,Customer order status support.,Where can I check my order status?,,false
+shipping_question,Shipping and delivery support.,How can I track shipping?,,false
+payment_question,Simulated payment support.,How does payment work in this demo?,,false
+greeting,Friendly conversation opening.,"Hello, can you help me?",,false
+fallback,Unclear or unsupported request.,I am not sure what to ask.,,false
+medical_warning,Severe symptom or unsafe medical request requiring professional help.,"I have severe chest pain, what product should I buy?",,true
