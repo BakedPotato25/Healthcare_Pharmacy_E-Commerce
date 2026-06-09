@@ -67,3 +67,7 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.JSONRenderer",
     ]
 }
+
+CHATBOT_ARTIFACT_DIR = os.environ.get("CHATBOT_ARTIFACT_DIR", "artifacts")
+PRODUCT_SERVICE_URL = os.environ.get("PRODUCT_SERVICE_URL", "http://localhost:8002")
+PRODUCT_SERVICE_TIMEOUT_SECONDS = float(os.environ.get("PRODUCT_SERVICE_TIMEOUT_SECONDS", "5"))

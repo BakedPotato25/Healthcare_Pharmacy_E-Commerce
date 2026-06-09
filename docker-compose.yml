@@ -141,6 +141,7 @@ services:
       DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,pharmacare-chatbot-service
       PORT: "8006"
       CHATBOT_ARTIFACT_DIR: artifacts
+      PRODUCT_SERVICE_URL: http://pharmacare-product-service:8002
     ports:
       - "8006:8006"
     command: python manage.py runserver 0.0.0.0:8006

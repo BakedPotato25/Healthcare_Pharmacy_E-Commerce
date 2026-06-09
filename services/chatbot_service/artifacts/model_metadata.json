@@ -1,0 +1,49 @@
+{
+  "project": "Healthcare Pharmacy E-Commerce Microservices System",
+  "model_family": "TF-IDF + Logistic Regression baseline",
+  "trained_at_utc": "2026-06-09T02:36:42.915444+00:00",
+  "dataset_path": "ml\\datasets\\chatbot_training_seed.csv",
+  "dataset_rows": 1110,
+  "category_training_rows": 690,
+  "test_size": 0.2,
+  "random_state": 42,
+  "intent_labels": [
+    "baby_care_support",
+    "category_recommendation",
+    "digestive_support",
+    "fallback",
+    "first_aid_support",
+    "greeting",
+    "medical_device_question",
+    "medical_warning",
+    "oral_care_support",
+    "order_status_question",
+    "payment_question",
+    "product_search",
+    "shipping_question",
+    "skincare_support",
+    "vitamin_advice"
+  ],
+  "category_labels": [
+    "Digestive Health",
+    "First Aid",
+    "Medical Devices",
+    "Mother & Baby",
+    "Nutrition & Health Food",
+    "OTC Medicine",
+    "Oral Care",
+    "Personal Care",
+    "Skincare",
+    "Vitamins & Minerals"
+  ],
+  "artifact_files": [
+    "intent_model.pkl",
+    "intent_vectorizer.pkl",
+    "category_model.pkl",
+    "category_vectorizer.pkl",
+    "label_encoders.pkl",
+    "model_metadata.json",
+    "metrics.json"
+  ],
+  "safety_note": "Academic demo only. The chatbot must not diagnose disease, claim cures, replace doctor/pharmacist advice, or recommend prescription treatment."
+}

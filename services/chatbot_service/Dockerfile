@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY manage.py .
 COPY chatbot_service ./chatbot_service
+COPY artifacts ./artifacts
 
 EXPOSE 8006
 
